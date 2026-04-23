@@ -10,8 +10,35 @@ import InfoPanel from "./components/ui/InfoPanel";
 import MobilePortfolio from "./components/mobile/MobilePortfolio";
 import World from "./components/3d/World";
 
+function CursorGlow() {
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  
+  useEffect(() => {
+    const handleMove = (e) => setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '600px',
+        height: '600px',
+        background: 'radial-gradient(circle, rgba(230,126,34,0.06) 0%, transparent 60%)',
+        transform: `translate(${pos.x - 300}px, ${pos.y - 300}px)`,
+        pointerEvents: 'none',
+        zIndex: 50,
+        transition: 'transform 0.1s cubic-bezier(0.16, 1, 0.3, 1)'
+      }}
+    />
+  );
+}
+
 export default function App() {
-  const { isLoaded, isMobile, activePanel, showAchievement } = useGameStore();
+  const { isLoaded, isMobile, activePanel, showAchievement, teleporting } = useGameStore();
   const [showLoading, setShowLoading] = useState(true);
   const [canvasReady, setCanvasReady] = useState(false);
 
@@ -76,6 +103,8 @@ export default function App() {
       {/* UI Overlays */}
       {!showLoading && (
         <>
+          {!isMobile && <CursorGlow />}
+          {teleporting && <div className="warp-overlay" />}
           <QuickMenu />
           <Minimap />
           <ControlsHint />
