@@ -2,7 +2,7 @@
 
 export const personalInfo = {
   name: "Akansha Rana",
-  title: "Computer Science Student | Full-Stack Developer | Applied AI (React, Python, RAG)",
+  title: "Computer Science Student | Full-Stack Developer | AI-Focused Developer",
   tagline: "Full Stack Developer focused on practical AI that works in the real world.",
   bio: `I am a Computer Science student, Full-Stack Developer, and Applied AI enthusiast. My journey in tech started with web development, and I've grown to specialize in React, Python, and RAG systems. I believe in writing clean code, building smooth UIs, and constantly learning. Whether I'm developing AI-driven platforms or scalable portals, my goal is always to create impactful digital experiences. Keep Learning & Never Settle.`,
   email: "akansharana0620@gmail.com",

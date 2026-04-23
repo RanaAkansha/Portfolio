@@ -255,6 +255,8 @@ export default function Player() {
     ]);
 
     // Camera follow
+    const { gameStarted } = useGameStore.getState();
+
     const cameraDistance = 10;
     const cameraHeight = 4 + camAngle.vertical * 6;
     const camX =
@@ -264,15 +266,22 @@ export default function Player() {
       player.position.z +
       Math.cos(camAngle.horizontal) * cameraDistance;
 
-    camera.position.lerp(
-      new THREE.Vector3(camX, player.position.y + cameraHeight, camZ),
-      delta * 4
-    );
-    camera.lookAt(
-      player.position.x,
-      player.position.y + 1,
-      player.position.z
-    );
+    if (!gameStarted) {
+      // Cinematic top-down hover before game fully starts
+      camera.position.lerp(new THREE.Vector3(0, 30, 20), delta * 2);
+      camera.lookAt(player.position.x, player.position.y, player.position.z);
+    } else {
+      // Smooth swoop down to player
+      camera.position.lerp(
+        new THREE.Vector3(camX, player.position.y + cameraHeight, camZ),
+        delta * 2.5 // Smooth cinematic drop speed
+      );
+      camera.lookAt(
+        player.position.x,
+        player.position.y + 1,
+        player.position.z
+      );
+    }
 
     // Zone detection
     const px = player.position.x;

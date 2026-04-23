@@ -70,6 +70,7 @@ export default function App() {
     setTimeout(() => {
       setShowLoading(false);
       setCanvasReady(true);
+      useGameStore.getState().startGame();
     }, 500);
   }, []);
 
@@ -86,7 +87,7 @@ export default function App() {
       {/* 3D Canvas */}
       <Canvas
         shadows
-        camera={{ fov: 55, near: 0.1, far: 500, position: [0, 8, 12] }}
+        camera={{ fov: 55, near: 0.1, far: 500, position: [0, 40, 30] }}
         gl={{
           antialias: true,
           alpha: false,
