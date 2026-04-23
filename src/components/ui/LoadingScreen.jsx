@@ -2,71 +2,6 @@ import React, { useState, useEffect } from "react";
 import useGameStore from "../../store/gameStore";
 import { personalInfo } from "../../data/portfolio";
 
-function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration = 2000, onComplete }) {
-  const [display, setDisplay] = useState("");
-  const [showCursor, setShowCursor] = useState(false);
-  const [doneTyping, setDoneTyping] = useState(false);
-
-  useEffect(() => {
-    let timeoutId;
-    let typeInterval;
-    
-    timeoutId = setTimeout(() => {
-      setShowCursor(true);
-      let i = 0;
-      typeInterval = setInterval(() => {
-        setDisplay(text.substring(0, i + 1));
-        i++;
-        if (i >= text.length) {
-          clearInterval(typeInterval);
-          setDoneTyping(true);
-          if (onComplete) {
-            onComplete();
-          }
-        }
-      }, speed);
-    }, startDelay);
-
-    return () => {
-      clearTimeout(timeoutId);
-      clearInterval(typeInterval);
-    };
-  }, [text, startDelay, speed, onComplete]);
-
-  useEffect(() => {
-    if (doneTyping) {
-      const timeout = setTimeout(() => {
-        setShowCursor(false);
-      }, cursorBlinkDuration);
-      return () => clearTimeout(timeout);
-    }
-  }, [doneTyping, cursorBlinkDuration]);
-
-  return (
-    <span>
-      {display}
-      <span 
-        style={{ 
-          opacity: showCursor ? 1 : 0, 
-          animation: showCursor && doneTyping ? "cursorBlink 0.5s infinite alternate" : "none",
-          marginLeft: '4px',
-          display: 'inline-block',
-          width: '8px',
-          height: '1.2em',
-          backgroundColor: '#ffffff',
-          verticalAlign: 'bottom'
-        }} 
-      />
-      <style>{`
-        @keyframes cursorBlink {
-          0% { opacity: 1; }
-          100% { opacity: 0; }
-        }
-      `}</style>
-    </span>
-  );
-}
-
 function LoadingSpinner({ progress }) {
   const radius = 24;
   const circumference = 2 * Math.PI * radius;
@@ -104,25 +39,27 @@ export default function LoadingScreen({ onComplete }) {
   const { loadingProgress, isLoaded } = useGameStore();
   const [fadeOut, setFadeOut] = useState(false);
   const [showName, setShowName] = useState(false);
-  const [typingComplete, setTypingComplete] = useState(false);
+  const [showTagline, setShowTagline] = useState(false);
 
   useEffect(() => {
-    setShowName(true);
+    // Elegant staggered entrance
+    setTimeout(() => setShowName(true), 100);
+    setTimeout(() => setShowTagline(true), 300);
   }, []);
 
   useEffect(() => {
-    if (isLoaded && typingComplete) {
-      setTimeout(() => setFadeOut(true), 1200);
-      setTimeout(() => onComplete(), 2000); 
+    if (isLoaded) {
+      setTimeout(() => setFadeOut(true), 300); // Quick pause at 100%
+      setTimeout(() => onComplete(), 1100); // 800ms fadeout duration
     }
-  }, [isLoaded, typingComplete, onComplete]);
+  }, [isLoaded, onComplete]);
 
   return (
     <div
       className="loading-screen"
       style={{
         opacity: fadeOut ? 0 : 1,
-        transition: "opacity 0.8s ease",
+        transition: "opacity 0.8s ease-in-out",
         pointerEvents: fadeOut ? "none" : "auto",
         backgroundColor: '#0a0a0a',
         display: 'flex',
@@ -147,8 +84,8 @@ export default function LoadingScreen({ onComplete }) {
             marginBottom: 16,
             fontWeight: 500,
             opacity: showName ? 1 : 0,
-            transform: showName ? 'translateY(0)' : 'translateY(10px)',
-            transition: 'all 0.8s ease-out'
+            transform: showName ? 'translateY(0)' : 'translateY(15px)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
           {personalInfo.name.toUpperCase()}
@@ -160,16 +97,13 @@ export default function LoadingScreen({ onComplete }) {
             letterSpacing: 2,
             color: "#a3a3a3",
             minHeight: "20px",
-            fontWeight: 300
+            fontWeight: 300,
+            opacity: showTagline ? 1 : 0,
+            transform: showTagline ? 'translateY(0)' : 'translateY(10px)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
-          <TypewriterText 
-            text={personalInfo.tagline} 
-            startDelay={400} 
-            speed={25} 
-            cursorBlinkDuration={1000} 
-            onComplete={() => setTypingComplete(true)}
-          />
+          {personalInfo.tagline}
         </div>
       </div>
     </div>

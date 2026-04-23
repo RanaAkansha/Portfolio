@@ -42,11 +42,11 @@ export default function App() {
   const [showLoading, setShowLoading] = useState(true);
   const [canvasReady, setCanvasReady] = useState(false);
 
-  // Drive loading progress from App level (Faster)
+  // Drive loading progress from App level
   useEffect(() => {
     let progress = 0;
     const interval = setInterval(() => {
-      progress += Math.random() * 25 + 15; // Faster increments
+      progress += Math.random() * 8 + 5; 
       if (progress >= 100) {
         progress = 100;
         clearInterval(interval);
@@ -54,7 +54,7 @@ export default function App() {
       } else {
         useGameStore.setState({ loadingProgress: Math.floor(progress) });
       }
-    }, 100); // Faster interval
+    }, 150); // Gives about 1.5 to 2 seconds of loading time
     return () => clearInterval(interval);
   }, []);
 
