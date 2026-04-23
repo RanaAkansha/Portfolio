@@ -1,85 +1,71 @@
 // Portfolio Data - Customize this file with your own information
 
 export const personalInfo = {
-  name: "Alex Chen",
-  title: "Full-Stack Developer",
-  tagline: "Interactive Developer Portfolio",
-  bio: `Passionate developer who builds immersive digital experiences at the intersection of creativity and technology. 
-  Specializing in React, Three.js, and full-stack web development with 4+ years of hands-on experience shipping production applications.`,
-  email: "alex@example.dev",
-  linkedin: "https://linkedin.com/in/alexchen",
-  github: "https://github.com/alexchen",
+  name: "Akansha Rana",
+  title: "Applied AI Full Stack Developer",
+  tagline: "Creative Frontend Dev | Clean Code. Smooth UI. Big Dreams.",
+  bio: `Computer Science student and Applied AI Full Stack Developer. I love exploring the universe, learning about dark energy, and building my skills in AI/ML. I believe complex topics should be explained in a simple & relatable way. Keep Learning & Never Settle.`,
+  email: "akansharana0620@gmail.com",
+  linkedin: "https://www.linkedin.com/in/akansha-rana",
+  github: "https://github.com/RanaAkansha",
   resumeUrl: "#",
 };
 
 export const projects = [
   {
     id: 1,
-    title: "NeuralViz",
+    title: "News Sphere",
     description:
-      "Real-time neural network visualization platform that renders deep learning architectures in 3D. Built for researchers to understand model behavior through interactive exploration.",
-    techStack: ["React", "Three.js", "Python", "TensorFlow", "WebSocket"],
-    liveUrl: "https://neuralviz.demo",
-    repoUrl: "https://github.com/alexchen/neuralviz",
+      "A fast and simple news site connected to YouTube Shorts. Features a clean layout that is mobile responsive and highly optimized for short-form video content.",
+    techStack: ["HTML", "Tailwind CSS", "JavaScript"],
+    liveUrl: "https://github.com/RanaAkansha/news-sphere",
+    repoUrl: "https://github.com/RanaAkansha/news-sphere",
     featured: true,
     color: "#6c5ce7",
   },
   {
     id: 2,
-    title: "CloudForge",
+    title: "Travel Guide Website",
     description:
-      "Infrastructure-as-code platform with visual pipeline editor. Deploy, monitor, and scale microservices through an intuitive drag-and-drop interface.",
-    techStack: ["Next.js", "Go", "Docker", "Kubernetes", "PostgreSQL"],
-    liveUrl: "https://cloudforge.demo",
-    repoUrl: "https://github.com/alexchen/cloudforge",
+      "Interactive travel guide featuring modern glassmorphism aesthetics and animated hover effects. Includes split hover sections and large immersive destination images.",
+    techStack: ["HTML", "CSS (Vanilla)", "JavaScript"],
+    liveUrl: "https://github.com/RanaAkansha/travel-guide",
+    repoUrl: "https://github.com/RanaAkansha/travel-guide",
     featured: true,
     color: "#00cec9",
   },
   {
     id: 3,
-    title: "SynthWave FM",
+    title: "Portfolio Website",
     description:
-      "AI-powered music streaming app that generates personalized synthwave playlists using neural audio synthesis and mood detection algorithms.",
-    techStack: ["React Native", "Node.js", "PyTorch", "Redis", "AWS"],
-    liveUrl: "https://synthwave.demo",
-    repoUrl: "https://github.com/alexchen/synthwave",
-    featured: true,
-    color: "#fd79a8",
-  },
-  {
-    id: 4,
-    title: "DataPulse",
-    description:
-      "Real-time analytics dashboard for SaaS metrics. Track KPIs, generate reports, and receive AI-driven insights about user behavior patterns.",
-    techStack: ["Vue.js", "D3.js", "Express", "MongoDB", "GraphQL"],
-    liveUrl: "https://datapulse.demo",
-    repoUrl: "https://github.com/alexchen/datapulse",
+      "A creative personal portfolio site featuring a futuristic loader, a rising hero section with the 'Never Settle' philosophy, and fully responsive layout.",
+    techStack: ["Tailwind CSS", "JavaScript", "HTML"],
+    liveUrl: "https://github.com/RanaAkansha/portfolio",
+    repoUrl: "https://github.com/RanaAkansha/portfolio",
     featured: false,
-    color: "#0984e3",
-  },
+    color: "#fd79a8",
+  }
 ];
 
 export const skills = {
   frontend: [
-    { name: "React / Next.js", level: 95 },
-    { name: "Three.js / R3F", level: 88 },
-    { name: "TypeScript", level: 92 },
-    { name: "Tailwind CSS", level: 90 },
-    { name: "Vue.js", level: 78 },
+    { name: "React / Next.js", level: 85 },
+    { name: "JavaScript", level: 90 },
+    { name: "Tailwind CSS", level: 95 },
+    { name: "HTML / CSS", level: 95 },
+    { name: "UI/UX Design", level: 80 },
   ],
   backend: [
-    { name: "Node.js", level: 90 },
     { name: "Python", level: 85 },
-    { name: "Go", level: 72 },
-    { name: "PostgreSQL", level: 82 },
-    { name: "GraphQL", level: 80 },
+    { name: "Node.js", level: 75 },
+    { name: "Applied AI/ML", level: 70 },
+    { name: "APIs", level: 80 },
   ],
   tools: [
-    { name: "Docker", level: 85 },
-    { name: "AWS / GCP", level: 78 },
-    { name: "Git / CI-CD", level: 92 },
-    { name: "Figma", level: 75 },
-    { name: "Linux", level: 80 },
+    { name: "Git / GitHub", level: 90 },
+    { name: "Figma", level: 85 },
+    { name: "Vercel", level: 80 },
+    { name: "VS Code", level: 95 },
   ],
 };
 
