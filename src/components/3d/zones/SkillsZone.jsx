@@ -1,122 +1,57 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Text, Float } from "@react-three/drei";
+import { Text, Float, MeshTransmissionMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { zonePositions, skills } from "../../../data/portfolio";
+import useGameStore from "../../../store/gameStore";
 
-function SkillOrb({ skill, position, color, categoryIndex }) {
-  const orbRef = useRef();
-  const [hovered, setHovered] = useState(false);
+function SkillOrb({ position, name, level }) {
+  const meshRef = useRef();
 
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    if (orbRef.current) {
-      orbRef.current.position.y =
-        position[1] + Math.sin(t * 0.6 + position[0] + position[2]) * 0.2;
-      orbRef.current.rotation.y = t * 0.3;
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta * 0.5;
+      meshRef.current.rotation.x += delta * 0.2;
     }
   });
 
-  const radius = 0.25 + (skill.level / 100) * 0.2;
-
-  return (
-    <group
-      ref={orbRef}
-      position={position}
-      onPointerEnter={() => {
-        setHovered(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerLeave={() => {
-        setHovered(false);
-        document.body.style.cursor = "default";
-      }}
-    >
-      {/* Core orb */}
-      <mesh castShadow>
-        <sphereGeometry args={[radius, 16, 16]} />
-        <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={hovered ? 0.8 : 0.4}
-          metalness={0.7}
-          roughness={0.2}
-          transparent
-          opacity={hovered ? 0.95 : 0.75}
-        />
-      </mesh>
-
-      {/* Outer glow shell */}
-      <mesh>
-        <sphereGeometry args={[radius + 0.1, 16, 16]} />
-        <meshBasicMaterial
-          color={color}
-          transparent
-          opacity={hovered ? 0.15 : 0.05}
-        />
-      </mesh>
-
-      {/* Skill name */}
-      <Text
-        position={[0, -radius - 0.3, 0]}
-        fontSize={0.13}
-        color={hovered ? "#ffffff" : color}
-
-        anchorX="center"
-        anchorY="middle"
-      >
-        {skill.name}
-      </Text>
-
-      {/* Level on hover */}
-      {hovered && (
-        <>
-          <Text
-            position={[0, radius + 0.3, 0]}
-            fontSize={0.15}
-            color="#ffffff"
-    
-            anchorX="center"
-            anchorY="middle"
-          >
-            {skill.level}%
-          </Text>
-          <pointLight
-            position={[0, 0, 0]}
-            intensity={2}
-            color={color}
-            distance={4}
-          />
-        </>
-      )}
-    </group>
-  );
-}
-
-function CategoryLabel({ text, position, color }) {
   return (
     <group position={position}>
-      {/* Background plate */}
-      <mesh>
-        <planeGeometry args={[2.5, 0.5]} />
-        <meshStandardMaterial
-          color="#080820"
-          emissive={color}
-          emissiveIntensity={0.1}
-          transparent
-          opacity={0.8}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-      <Text
-        position={[0, 0, 0.05]}
-        fontSize={0.18}
-        color={color}
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+        <mesh ref={meshRef} castShadow>
+          <sphereGeometry args={[0.5, 32, 32]} />
+          <meshPhysicalMaterial 
+            color="#ffffff"
+            transmission={0.9}
+            opacity={1}
+            metalness={0.1}
+            roughness={0.05}
+            ior={1.5}
+            thickness={0.2}
+            transparent
+          />
+        </mesh>
+      </Float>
 
+      <Text
+        position={[0, -0.8, 0]}
+        fontSize={0.15}
+        color="#ffffff"
+        anchorX="center"
+        anchorY="middle"
+        letterSpacing={0.1}
+      >
+        {name.toUpperCase()}
+      </Text>
+      
+      <Text
+        position={[0, -1.0, 0]}
+        fontSize={0.1}
+        color="#737373"
         anchorX="center"
         anchorY="middle"
       >
-        {text}
+        {level}%
       </Text>
     </group>
   );
@@ -124,132 +59,93 @@ function CategoryLabel({ text, position, color }) {
 
 export default function SkillsZone() {
   const pos = zonePositions.skills;
-  const categoryColors = ["#6c5ce7", "#00cec9", "#0984e3"];
-  const categoryNames = ["FRONTEND", "BACKEND", "TOOLS"];
+  const { setActivePanel } = useGameStore();
+
+  const allSkills = useMemo(() => {
+    return [
+      ...skills.frontend.slice(0, 3),
+      ...skills.backend.slice(0, 3)
+    ];
+  }, []);
 
   return (
     <group position={[pos.x, 0, pos.z]}>
-      {/* Platform */}
-      <mesh position={[0, 0.05, 0]} receiveShadow>
-        <cylinderGeometry args={[12, 12, 0.1, 6]} />
+      {/* Floor */}
+      <mesh position={[0, 0.05, 0]} receiveShadow rotation={[-Math.PI/2, 0, 0]}>
+        <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
-          color="#0c0c28"
-          emissive="#0984e3"
-          emissiveIntensity={0.03}
-          metalness={0.3}
-          roughness={0.8}
+          color="#050505"
+          roughness={0.9}
+          metalness={0.1}
         />
       </mesh>
 
-      {/* Zone label */}
-      <Float speed={1} rotationIntensity={0} floatIntensity={0.3}>
+      {/* Zone Title */}
+      <Float speed={1} rotationIntensity={0} floatIntensity={0.2}>
         <Text
-          position={[0, 7, 0]}
-          fontSize={0.8}
-          color="#0984e3"
-  
+          position={[0, 6, -3]}
+          fontSize={1.5}
+          color="#ffffff"
           anchorX="center"
           anchorY="middle"
+          letterSpacing={-0.05}
         >
-          SKILLS LAB
+          SKILLS
         </Text>
       </Float>
 
-      <Text
-        position={[0, 6, 0]}
-        fontSize={0.2}
-        color="#8888aa"
-        anchorX="center"
-        anchorY="middle"
-      >
-        Hover to see proficiency
-      </Text>
-
-      {/* Skills arranged by category in arcs */}
-      {Object.entries(skills).map(([category, items], catIdx) => {
-        const sectionAngle = (catIdx / 3) * Math.PI * 2 - Math.PI / 2;
-        const color = categoryColors[catIdx];
-
-        return (
-          <group key={category}>
-            {/* Category label */}
-            <CategoryLabel
-              text={categoryNames[catIdx]}
-              position={[
-                Math.cos(sectionAngle) * 4,
-                5,
-                Math.sin(sectionAngle) * 4,
-              ]}
-              color={color}
-            />
-
-            {/* Skill orbs */}
-            {items.map((skill, skillIdx) => {
-              const spreadAngle =
-                sectionAngle +
-                ((skillIdx - (items.length - 1) / 2) * 0.4);
-              const radius = 6 + (skillIdx % 2) * 2;
-              const x = Math.cos(spreadAngle) * radius;
-              const z = Math.sin(spreadAngle) * radius;
-              const y = 2 + skillIdx * 0.3;
-
-              return (
-                <SkillOrb
-                  key={skill.name}
-                  skill={skill}
-                  position={[x, y, z]}
-                  color={color}
-                  categoryIndex={catIdx}
-                />
-              );
-            })}
-
-            {/* Connecting beam from center to category */}
-            <mesh
-              position={[
-                Math.cos(sectionAngle) * 2,
-                0.1,
-                Math.sin(sectionAngle) * 2,
-              ]}
-              rotation={[
-                -Math.PI / 2,
-                0,
-                sectionAngle + Math.PI / 2,
-              ]}
-            >
-              <planeGeometry args={[0.05, 4]} />
-              <meshBasicMaterial
-                color={color}
-                transparent
-                opacity={0.15}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-          </group>
-        );
-      })}
-
-      {/* Central node */}
-      <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.3}>
-        <mesh position={[0, 3, 0]} castShadow>
-          <icosahedronGeometry args={[0.8, 1]} />
-          <meshStandardMaterial
-            color="#0984e3"
-            emissive="#0984e3"
-            emissiveIntensity={0.5}
-            metalness={0.8}
-            roughness={0.1}
+      {/* Center Interactive Hub */}
+      <group position={[0, 2, 0]}>
+        <mesh 
+          onClick={(e) => {
+            e.stopPropagation();
+            setActivePanel("skills");
+          }}
+          onPointerOver={() => document.body.style.cursor = 'pointer'}
+          onPointerOut={() => document.body.style.cursor = 'default'}
+        >
+          <icosahedronGeometry args={[1, 0]} />
+          <meshPhysicalMaterial 
+            color="#ffffff"
+            transmission={0.9}
+            opacity={1}
+            metalness={0.1}
+            roughness={0.05}
+            ior={1.5}
+            thickness={1}
             transparent
-            opacity={0.6}
           />
         </mesh>
-      </Float>
+        <Text
+          position={[0, 1.5, 0]}
+          fontSize={0.15}
+          color="#ffffff"
+          anchorX="center"
+          anchorY="middle"
+        >
+          CLICK TO VIEW ALL
+        </Text>
+      </group>
 
-      {/* Ring decoration */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.06, 0]}>
-        <ringGeometry args={[11.5, 11.8, 64]} />
-        <meshBasicMaterial color="#0984e3" transparent opacity={0.15} />
-      </mesh>
+      {/* Orbiting Orbs */}
+      <group position={[0, 2, 0]}>
+        {allSkills.map((skill, index) => {
+          const angle = (index / allSkills.length) * Math.PI * 2;
+          const radius = 3.5;
+          const x = Math.sin(angle) * radius;
+          const z = Math.cos(angle) * radius;
+          return (
+            <SkillOrb
+              key={skill.name}
+              position={[x, 0, z]}
+              name={skill.name}
+              level={skill.level}
+            />
+          );
+        })}
+      </group>
+
+      <pointLight position={[0, 5, 0]} intensity={1.5} color="#ffffff" distance={20} />
     </group>
   );
 }

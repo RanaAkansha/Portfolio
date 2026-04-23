@@ -1,35 +1,47 @@
 import React, { useState } from "react";
 import useGameStore from "../../store/gameStore";
 import { personalInfo } from "../../data/portfolio";
+import useSoundEffects from "../../hooks/useSoundEffects";
 
 export default function QuickMenu() {
-  const { teleportTo, setActivePanel, activePanel } = useGameStore();
+  const { teleportTo, setActivePanel } = useGameStore();
   const [expanded, setExpanded] = useState(true);
+  const { playHover, playClick, playWarp } = useSoundEffects();
+
+  const handleTeleport = (zone) => {
+    playWarp();
+    teleportTo(zone);
+  };
+
+  const handlePanel = (panel) => {
+    playClick();
+    setActivePanel(panel);
+  };
 
   const menuItems = [
     {
       label: "About",
-      action: () => teleportTo("about"),
+      action: () => handleTeleport("about"),
       icon: "👤",
-      color: "#00cec9",
+      color: "#ffffff",
     },
     {
       label: "Projects",
-      action: () => teleportTo("projects"),
+      action: () => handleTeleport("projects"),
       icon: "🚀",
-      color: "#fd79a8",
+      color: "#ffffff",
     },
     {
       label: "Skills",
-      action: () => teleportTo("skills"),
+      action: () => handleTeleport("skills"),
       icon: "⚡",
-      color: "#0984e3",
+      color: "#ffffff",
     },
     {
       label: "Contact",
-      action: () => setActivePanel("contact"),
+      action: () => handlePanel("contact"),
       icon: "📡",
-      color: "#6c5ce7",
+      color: "#ffffff",
     },
   ];
 
@@ -37,14 +49,17 @@ export default function QuickMenu() {
     {
       label: "Skip to Projects",
       action: () => {
-        teleportTo("projects");
+        handleTeleport("projects");
         setTimeout(() => setActivePanel("projects"), 800);
       },
       highlight: true,
     },
     {
       label: "Download Resume",
-      action: () => window.open(personalInfo.resumeUrl, "_blank"),
+      action: () => {
+        playClick();
+        window.open(personalInfo.resumeUrl, "_blank");
+      },
       highlight: false,
     },
   ];
@@ -53,10 +68,11 @@ export default function QuickMenu() {
     <div className="quick-menu">
       {/* Toggle button */}
       <button
-        className="quick-menu-btn"
-        onClick={() => setExpanded(!expanded)}
+        className="menu-btn"
+        onClick={() => { playClick(); setExpanded(!expanded); }}
+        onMouseEnter={playHover}
         style={{
-          borderColor: "var(--color-accent)",
+          borderColor: "rgba(255,255,255,0.2)",
           fontSize: 14,
           padding: "8px 16px",
         }}
@@ -70,38 +86,30 @@ export default function QuickMenu() {
           {menuItems.map((item) => (
             <button
               key={item.label}
-              className="quick-menu-btn"
+              className="menu-btn"
               onClick={item.action}
+              onMouseEnter={playHover}
               style={{
-                borderColor: `${item.color}33`,
+                borderColor: `rgba(255,255,255,0.1)`,
               }}
             >
               {item.icon} {item.label}
             </button>
           ))}
 
-          {/* Separator */}
-          <div
-            style={{
-              height: 1,
-              background:
-                "linear-gradient(90deg, transparent, var(--color-primary), transparent)",
-              margin: "4px 0",
-            }}
-          />
-
           {/* Quick actions */}
           {quickActions.map((action) => (
             <button
               key={action.label}
-              className="quick-menu-btn"
+              className="menu-btn"
               onClick={action.action}
+              onMouseEnter={playHover}
               style={{
                 background: action.highlight
-                  ? "linear-gradient(135deg, rgba(108,92,231,0.3), rgba(0,206,201,0.2))"
+                  ? "rgba(255, 255, 255, 0.1)"
                   : undefined,
                 borderColor: action.highlight
-                  ? "var(--color-accent)"
+                  ? "#ffffff"
                   : undefined,
               }}
             >

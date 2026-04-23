@@ -40,10 +40,8 @@ function CharacterModel({ isMoving }) {
       <mesh position={[0, 0.65, 0]} castShadow>
         <boxGeometry args={[0.5, 0.6, 0.3]} />
         <meshStandardMaterial
-          color="#6c5ce7"
-          emissive="#3d2f8a"
-          emissiveIntensity={0.3}
-          metalness={0.3}
+          color="#ececec"
+          metalness={0.2}
           roughness={0.7}
         />
       </mesh>
@@ -52,9 +50,7 @@ function CharacterModel({ isMoving }) {
       <mesh ref={headRef} position={[0, 1.15, 0]} castShadow>
         <boxGeometry args={[0.35, 0.35, 0.35]} />
         <meshStandardMaterial
-          color="#a29bfe"
-          emissive="#6c5ce7"
-          emissiveIntensity={0.2}
+          color="#ececec"
           metalness={0.2}
           roughness={0.8}
         />
@@ -76,7 +72,7 @@ function CharacterModel({ isMoving }) {
       <group ref={leftLegRef} position={[-0.12, 0.25, 0]}>
         <mesh position={[0, -0.15, 0]} castShadow>
           <boxGeometry args={[0.15, 0.3, 0.2]} />
-          <meshStandardMaterial color="#4a3d7a" roughness={0.8} />
+          <meshStandardMaterial color="#333333" roughness={0.8} />
         </mesh>
       </group>
 
@@ -84,7 +80,7 @@ function CharacterModel({ isMoving }) {
       <group ref={rightLegRef} position={[0.12, 0.25, 0]}>
         <mesh position={[0, -0.15, 0]} castShadow>
           <boxGeometry args={[0.15, 0.3, 0.2]} />
-          <meshStandardMaterial color="#4a3d7a" roughness={0.8} />
+          <meshStandardMaterial color="#333333" roughness={0.8} />
         </mesh>
       </group>
 
@@ -92,7 +88,7 @@ function CharacterModel({ isMoving }) {
       <pointLight
         position={[0, 0.1, 0]}
         intensity={0.5}
-        color="#6c5ce7"
+        color="#00cec9"
         distance={3}
       />
     </group>
