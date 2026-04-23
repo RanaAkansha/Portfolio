@@ -62,7 +62,7 @@ export default function SpawnArea() {
           anchorY="middle"
           letterSpacing={-0.05}
         >
-          {firstName}
+          FULL-STACK
         </Text>
         <Text
           position={[0, 1.5, 0]}
@@ -72,19 +72,19 @@ export default function SpawnArea() {
           anchorY="middle"
           letterSpacing={-0.05}
         >
-          {lastName}
+          DEVELOPER
         </Text>
       </Float>
 
       <Text
         position={[0, 0.5, 2]}
-        fontSize={0.2}
-        color="#737373"
+        fontSize={0.25}
+        color="#a3a3a3"
         anchorX="center"
         anchorY="middle"
         letterSpacing={0.2}
       >
-        {personalInfo.title.toUpperCase()}
+        AI-FOCUSED | PRACTICAL SOLUTIONS
       </Text>
 
       <Text
