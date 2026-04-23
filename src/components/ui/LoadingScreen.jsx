@@ -2,58 +2,6 @@ import React, { useState, useEffect } from "react";
 import useGameStore from "../../store/gameStore";
 import { personalInfo } from "../../data/portfolio";
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
-
-function ScrambleText({ text, duration = 800, onComplete }) {
-  const [display, setDisplay] = useState("");
-
-  useEffect(() => {
-    let frame = 0;
-    const totalFrames = (duration / 1000) * 60; // ~60fps
-    const textLen = text.length;
-    
-    let animationId;
-    let lastTime = 0;
-
-    const animate = (time) => {
-      if (time - lastTime < 30) {
-        animationId = requestAnimationFrame(animate);
-        return;
-      }
-      lastTime = time;
-      frame += 2;
-      const progress = frame / totalFrames;
-      
-      if (progress >= 1) {
-        setDisplay(text);
-        if (onComplete) onComplete();
-        return;
-      }
-      
-      let newStr = "";
-      for (let i = 0; i < textLen; i++) {
-        if (text[i] === " ") {
-          newStr += " ";
-          continue;
-        }
-        const charProgress = i / textLen;
-        if (progress > charProgress + 0.1) {
-          newStr += text[i];
-        } else {
-          newStr += CHARS[Math.floor(Math.random() * CHARS.length)];
-        }
-      }
-      setDisplay(newStr);
-      animationId = requestAnimationFrame(animate);
-    };
-    
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
-  }, [text, duration, onComplete]);
-
-  return <span>{display || text.replace(/./g, () => CHARS[Math.floor(Math.random() * CHARS.length)])}</span>;
-}
-
 function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration = 2000 }) {
   const [display, setDisplay] = useState("");
   const [showCursor, setShowCursor] = useState(false);
@@ -102,7 +50,7 @@ function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration 
           display: 'inline-block',
           width: '8px',
           height: '1.2em',
-          backgroundColor: 'var(--color-primary-light)',
+          backgroundColor: '#ffffff',
           verticalAlign: 'bottom'
         }} 
       />
@@ -116,14 +64,52 @@ function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration 
   );
 }
 
+function LoadingSpinner({ progress }) {
+  const radius = 24;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <div style={{ position: 'relative', width: 60, height: 60, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <svg width="60" height="60" style={{ position: 'absolute', transform: 'rotate(-90deg)' }}>
+        {/* Track */}
+        <circle 
+          cx="30" cy="30" r={radius} 
+          fill="none" 
+          stroke="rgba(255,255,255,0.1)" 
+          strokeWidth="2" 
+        />
+        {/* Progress */}
+        <circle 
+          cx="30" cy="30" r={radius} 
+          fill="none" 
+          stroke="#ffffff" 
+          strokeWidth="2" 
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          style={{ transition: 'stroke-dashoffset 0.1s ease-out' }}
+        />
+      </svg>
+      <span className="font-mono" style={{ fontSize: 10, color: '#ffffff', letterSpacing: 1, position: 'relative', top: 1, left: 1 }}>
+        {progress}
+      </span>
+    </div>
+  );
+}
+
 export default function LoadingScreen({ onComplete }) {
   const { loadingProgress, isLoaded } = useGameStore();
   const [fadeOut, setFadeOut] = useState(false);
+  const [showName, setShowName] = useState(false);
+
+  useEffect(() => {
+    setShowName(true);
+  }, []);
 
   useEffect(() => {
     if (isLoaded) {
-      setTimeout(() => setFadeOut(true), 400);
-      setTimeout(() => onComplete(), 1200);
+      setTimeout(() => setFadeOut(true), 200);
+      setTimeout(() => onComplete(), 1000); // Faster fadeout
     }
   }, [isLoaded, onComplete]);
 
@@ -134,129 +120,48 @@ export default function LoadingScreen({ onComplete }) {
         opacity: fadeOut ? 0 : 1,
         transition: "opacity 0.8s ease",
         pointerEvents: fadeOut ? "none" : "auto",
+        backgroundColor: '#0a0a0a',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      {/* Scanline effect */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(108, 92, 231, 0.03) 2px, rgba(108, 92, 231, 0.03) 4px)",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Sleek Progress Circle */}
+      <div style={{ marginBottom: 40 }}>
+        <LoadingSpinner progress={loadingProgress} />
+      </div>
 
       {/* Logo / Title */}
       <div style={{ textAlign: "center", marginBottom: 8 }}>
-        <div
+        <h1
           className="font-display"
           style={{
-            fontSize: 14,
-            letterSpacing: 8,
-            color: "var(--color-text-muted)",
-            marginBottom: 16,
-            textTransform: "uppercase",
-          }}
-        >
-          Initializing
-        </div>
-        <h1
-          className="font-display glow-text"
-          style={{
             fontSize: "clamp(24px, 5vw, 48px)",
-            color: "var(--color-accent-glow)",
+            color: "#ffffff",
             letterSpacing: 4,
-            marginBottom: 8,
+            marginBottom: 16,
+            fontWeight: 500,
+            opacity: showName ? 1 : 0,
+            transform: showName ? 'translateY(0)' : 'translateY(10px)',
+            transition: 'all 0.8s ease-out'
           }}
         >
-          <ScrambleText text={personalInfo.name.toUpperCase()} duration={600} />
+          {personalInfo.name.toUpperCase()}
         </h1>
         <div
           className="font-display"
           style={{
             fontSize: 14,
             letterSpacing: 2,
-            color: "var(--color-primary-light)",
+            color: "#a3a3a3",
             minHeight: "20px",
+            fontWeight: 300
           }}
         >
-          <TypewriterText text={personalInfo.tagline} startDelay={900} speed={30} cursorBlinkDuration={1500} />
+          <TypewriterText text={personalInfo.tagline} startDelay={400} speed={25} cursorBlinkDuration={1000} />
         </div>
       </div>
-
-      {/* Progress bar */}
-      <div className="loading-bar-track">
-        <div
-          className="loading-bar-fill"
-          style={{ width: `${loadingProgress}%` }}
-        />
-      </div>
-
-      {/* Progress text */}
-      <div
-        className="font-mono"
-        style={{
-          marginTop: 16,
-          fontSize: 12,
-          color: "var(--color-text-muted)",
-          letterSpacing: 2,
-        }}
-      >
-        {loadingProgress < 100
-          ? `LOADING ASSETS... ${loadingProgress}%`
-          : "READY"}
-      </div>
-
-      {/* Decorative corners */}
-      <div
-        style={{
-          position: "absolute",
-          top: 20,
-          left: 20,
-          width: 40,
-          height: 40,
-          borderTop: "2px solid var(--color-primary)",
-          borderLeft: "2px solid var(--color-primary)",
-          opacity: 0.3,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          width: 40,
-          height: 40,
-          borderTop: "2px solid var(--color-primary)",
-          borderRight: "2px solid var(--color-primary)",
-          opacity: 0.3,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: 20,
-          left: 20,
-          width: 40,
-          height: 40,
-          borderBottom: "2px solid var(--color-primary)",
-          borderLeft: "2px solid var(--color-primary)",
-          opacity: 0.3,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: 20,
-          right: 20,
-          width: 40,
-          height: 40,
-          borderBottom: "2px solid var(--color-primary)",
-          borderRight: "2px solid var(--color-primary)",
-          opacity: 0.3,
-        }}
-      />
     </div>
   );
 }
