@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useGameStore from "../../store/gameStore";
 import { personalInfo } from "../../data/portfolio";
 
-function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration = 2000 }) {
+function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration = 2000, onComplete }) {
   const [display, setDisplay] = useState("");
   const [showCursor, setShowCursor] = useState(false);
   const [doneTyping, setDoneTyping] = useState(false);
@@ -20,6 +20,9 @@ function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration 
         if (i >= text.length) {
           clearInterval(typeInterval);
           setDoneTyping(true);
+          if (onComplete) {
+            onComplete();
+          }
         }
       }, speed);
     }, startDelay);
@@ -28,7 +31,7 @@ function TypewriterText({ text, startDelay = 0, speed = 30, cursorBlinkDuration 
       clearTimeout(timeoutId);
       clearInterval(typeInterval);
     };
-  }, [text, startDelay, speed]);
+  }, [text, startDelay, speed, onComplete]);
 
   useEffect(() => {
     if (doneTyping) {
@@ -101,17 +104,18 @@ export default function LoadingScreen({ onComplete }) {
   const { loadingProgress, isLoaded } = useGameStore();
   const [fadeOut, setFadeOut] = useState(false);
   const [showName, setShowName] = useState(false);
+  const [typingComplete, setTypingComplete] = useState(false);
 
   useEffect(() => {
     setShowName(true);
   }, []);
 
   useEffect(() => {
-    if (isLoaded) {
-      setTimeout(() => setFadeOut(true), 200);
-      setTimeout(() => onComplete(), 1000); // Faster fadeout
+    if (isLoaded && typingComplete) {
+      setTimeout(() => setFadeOut(true), 1200);
+      setTimeout(() => onComplete(), 2000); 
     }
-  }, [isLoaded, onComplete]);
+  }, [isLoaded, typingComplete, onComplete]);
 
   return (
     <div
@@ -159,7 +163,13 @@ export default function LoadingScreen({ onComplete }) {
             fontWeight: 300
           }}
         >
-          <TypewriterText text={personalInfo.tagline} startDelay={400} speed={25} cursorBlinkDuration={1000} />
+          <TypewriterText 
+            text={personalInfo.tagline} 
+            startDelay={400} 
+            speed={25} 
+            cursorBlinkDuration={1000} 
+            onComplete={() => setTypingComplete(true)}
+          />
         </div>
       </div>
     </div>
