@@ -106,7 +106,6 @@ export default function Player() {
   const [isMoving, setIsMoving] = React.useState(false);
 
   const {
-    teleporting,
     currentZone,
     setPlayerPosition,
     setCurrentZone,
@@ -165,15 +164,7 @@ export default function Player() {
     };
   }, []);
 
-  // Handle teleport
-  useEffect(() => {
-    if (teleporting && playerRef.current) {
-      const pos = zonePositions[currentZone];
-      if (pos) {
-        playerRef.current.position.set(pos.x, PLAYER_HEIGHT, pos.z);
-      }
-    }
-  }, [teleporting, currentZone]);
+
 
   // Main game loop
   useFrame((state, delta) => {

@@ -13,6 +13,7 @@ import AboutZone from "./zones/AboutZone";
 import ProjectsZone from "./zones/ProjectsZone";
 import SkillsZone from "./zones/SkillsZone";
 import ContactZone from "./zones/ContactZone";
+import ExperienceZone from "./zones/ExperienceZone";
 import Ground from "./environment/Ground";
 import Pathways from "./environment/Pathways";
 import FloatingParticles from "./environment/FloatingParticles";
@@ -76,6 +77,7 @@ export default function World() {
       {/* Zones */}
       <SpawnArea />
       <AboutZone />
+      <ExperienceZone />
       <ProjectsZone />
       <SkillsZone />
       <ContactZone />

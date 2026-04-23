@@ -24,7 +24,6 @@ const useGameStore = create((set, get) => ({
 
   // Camera
   cameraMode: "follow", // 'follow' | 'cinematic' | 'free'
-  teleporting: false,
 
   // Actions
   setPlayerPosition: (pos) => set({ playerPosition: pos }),
@@ -47,6 +46,7 @@ const useGameStore = create((set, get) => ({
     if (isNew && zone !== "spawn") {
       const zoneNames = {
         about: "About Section",
+        experience: "Experience Timeline",
         projects: "Projects Gallery",
         skills: "Skills Lab",
         contact: "Contact Terminal",
@@ -77,6 +77,7 @@ const useGameStore = create((set, get) => ({
     if (isNew) {
       const zoneNames = {
         about: "About Section",
+        experience: "Experience Timeline",
         projects: "Projects Gallery",
         skills: "Skills Lab",
         contact: "Contact Terminal",

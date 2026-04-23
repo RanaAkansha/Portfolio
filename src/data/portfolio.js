@@ -70,10 +70,22 @@ export const skills = {
   ],
 };
 
+export const experience = [
+  {
+    id: 1,
+    role: "UI/UX Intern",
+    company: "Scholar Hat",
+    duration: "2 Months",
+    type: "Remote",
+    description: "Collaborated remotely to design and refine user interfaces, improving overall user experience and visual consistency across the platform."
+  }
+];
+
 // Zone positions in the 3D world (x, z coordinates)
 export const zonePositions = {
   spawn: { x: 0, z: 0 },
   about: { x: -25, z: -20 },
+  experience: { x: 0, z: -35 }, // Added new zone straight ahead
   projects: { x: 25, z: -15 },
   skills: { x: -20, z: 25 },
   contact: { x: 20, z: 28 },

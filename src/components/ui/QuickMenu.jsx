@@ -26,6 +26,12 @@ export default function QuickMenu() {
       color: "#ffffff",
     },
     {
+      label: "Experience",
+      action: () => handleTeleport("experience"),
+      icon: "★",
+      color: "#ffffff",
+    },
+    {
       label: "Projects",
       action: () => handleTeleport("projects"),
       icon: "🚀",

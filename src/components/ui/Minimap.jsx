@@ -19,6 +19,7 @@ export default function Minimap() {
   const zoneColors = {
     spawn: "#a29bfe",
     about: "#00cec9",
+    experience: "#fab1a0",
     projects: "#fd79a8",
     skills: "#0984e3",
     contact: "#6c5ce7",
@@ -27,6 +28,7 @@ export default function Minimap() {
   const zoneLabels = {
     spawn: "⌂",
     about: "i",
+    experience: "★",
     projects: "◆",
     skills: "⚡",
     contact: "✉",

@@ -38,7 +38,7 @@ function CursorGlow() {
 }
 
 export default function App() {
-  const { isLoaded, isMobile, activePanel, showAchievement, teleporting } = useGameStore();
+  const { isLoaded, isMobile, activePanel, showAchievement } = useGameStore();
   const [showLoading, setShowLoading] = useState(true);
   const [canvasReady, setCanvasReady] = useState(false);
 
