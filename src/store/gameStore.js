@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { zonePositions } from "../data/portfolio";
 
 const useGameStore = create((set, get) => ({
   // Player state
@@ -61,7 +62,12 @@ const useGameStore = create((set, get) => ({
     set({ activePanel: null, selectedProject: null }),
 
   teleportTo: (zone) => {
-    set({ teleporting: true, currentZone: zone });
+    const pos = zonePositions[zone];
+    
+    if (pos) {
+      set({ moveTarget: [pos.x, 0, pos.z] });
+    }
+    
     // visitedZones update
     const state = get();
     const newVisited = new Set(state.visitedZones);
@@ -78,7 +84,6 @@ const useGameStore = create((set, get) => ({
       set({ showAchievement: `🏆 Discovered: ${zoneNames[zone] || zone}` });
       setTimeout(() => set({ showAchievement: null }), 3000);
     }
-    setTimeout(() => set({ teleporting: false }), 600);
   },
 
   setCameraMode: (mode) => set({ cameraMode: mode }),
