@@ -68,6 +68,15 @@ function AboutPanel() {
             >
               LinkedIn
             </a>
+            {" · "}
+            <a
+              href={personalInfo.devTo}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--color-accent)", textDecoration: "none" }}
+            >
+              DEV.to
+            </a>
           </div>
         </div>
       </div>
@@ -476,6 +485,18 @@ function ContactPanel() {
             }}
           >
             🔗 LinkedIn
+          </a>
+          <a
+            href={personalInfo.devTo}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--color-accent)",
+              textDecoration: "none",
+              fontSize: 14,
+            }}
+          >
+            📝 DEV.to
           </a>
         </div>
       </div>

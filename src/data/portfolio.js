@@ -2,46 +2,47 @@
 
 export const personalInfo = {
   name: "Akansha Rana",
-  title: "Applied AI Full Stack Developer",
+  title: "Computer Science Student | Full-Stack Developer | Applied AI (React, Python, RAG)",
   tagline: "Creative Frontend Dev | Clean Code. Smooth UI. Big Dreams.",
-  bio: `Computer Science student and Applied AI Full Stack Developer. I love exploring the universe, learning about dark energy, and building my skills in AI/ML. I believe complex topics should be explained in a simple & relatable way. Keep Learning & Never Settle.`,
+  bio: `I am a Computer Science student, Full-Stack Developer, and Applied AI enthusiast. My journey in tech started with web development, and I've grown to specialize in React, Python, and RAG systems. I believe in writing clean code, building smooth UIs, and constantly learning. Whether I'm developing AI-driven platforms or scalable portals, my goal is always to create impactful digital experiences. Keep Learning & Never Settle.`,
   email: "akansharana0620@gmail.com",
   linkedin: "https://www.linkedin.com/in/akansha-rana",
   github: "https://github.com/RanaAkansha",
+  devTo: "https://dev.to/akansha_rana",
   resumeUrl: "#",
 };
 
 export const projects = [
   {
     id: 1,
-    title: "News Sphere",
+    title: "intervAI",
     description:
-      "A fast and simple news site connected to YouTube Shorts. Features a clean layout that is mobile responsive and highly optimized for short-form video content.",
-    techStack: ["HTML", "Tailwind CSS", "JavaScript"],
-    liveUrl: "https://github.com/RanaAkansha/news-sphere",
-    repoUrl: "https://github.com/RanaAkansha/news-sphere",
+      "An AI-powered interview preparation platform using RAG and modern web technologies to simulate realistic technical interviews and provide actionable feedback.",
+    techStack: ["React", "Python", "RAG", "Next.js"],
+    liveUrl: "https://github.com/RanaAkansha",
+    repoUrl: "https://github.com/RanaAkansha",
     featured: true,
     color: "#6c5ce7",
   },
   {
     id: 2,
-    title: "Travel Guide Website",
+    title: "CampusCore",
     description:
-      "Interactive travel guide featuring modern glassmorphism aesthetics and animated hover effects. Includes split hover sections and large immersive destination images.",
-    techStack: ["HTML", "CSS (Vanilla)", "JavaScript"],
-    liveUrl: "https://github.com/RanaAkansha/travel-guide",
-    repoUrl: "https://github.com/RanaAkansha/travel-guide",
+      "A comprehensive student and admin portal designed to streamline university operations with secure authentication and robust database management.",
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Tailwind"],
+    liveUrl: "https://github.com/RanaAkansha",
+    repoUrl: "https://github.com/RanaAkansha",
     featured: true,
     color: "#00cec9",
   },
   {
     id: 3,
-    title: "Portfolio Website",
+    title: "Nearby",
     description:
-      "A creative personal portfolio site featuring a futuristic loader, a rising hero section with the 'Never Settle' philosophy, and fully responsive layout.",
-    techStack: ["Tailwind CSS", "JavaScript", "HTML"],
-    liveUrl: "https://github.com/RanaAkansha/portfolio",
-    repoUrl: "https://github.com/RanaAkansha/portfolio",
+      "A location-based application connecting users to nearby places and events using real-time geolocation and interactive maps.",
+    techStack: ["React", "Tailwind CSS", "JavaScript"],
+    liveUrl: "https://github.com/RanaAkansha",
+    repoUrl: "https://github.com/RanaAkansha",
     featured: false,
     color: "#fd79a8",
   }
