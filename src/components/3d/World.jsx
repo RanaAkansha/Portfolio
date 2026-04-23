@@ -23,11 +23,11 @@ export default function World() {
   return (
     <group ref={groupRef}>
       {/* Lighting */}
-      <ambientLight intensity={0.15} color="#4a3f8a" />
+      <ambientLight intensity={0.8} color="#ffffff" />
       <directionalLight
         position={[30, 50, 20]}
-        intensity={0.4}
-        color="#8b7fd4"
+        intensity={1.0}
+        color="#ffffff"
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-far={100}

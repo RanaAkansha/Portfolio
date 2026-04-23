@@ -104,7 +104,6 @@ export default function App() {
       {!showLoading && (
         <>
           {!isMobile && <CursorGlow />}
-          {teleporting && <div className="warp-overlay" />}
           <QuickMenu />
           <Minimap />
           <ControlsHint />
