@@ -1,119 +1,42 @@
-import React, { Suspense, useState, useEffect, useCallback } from "react";
-import { Canvas } from "@react-three/fiber";
-import useGameStore from "./store/gameStore";
-import LoadingScreen from "./components/ui/LoadingScreen";
-import QuickMenu from "./components/ui/QuickMenu";
-import Minimap from "./components/ui/Minimap";
-import ControlsHint from "./components/ui/ControlsHint";
-import AchievementToast from "./components/ui/AchievementToast";
-import InfoPanel from "./components/ui/InfoPanel";
-import MobilePortfolio from "./components/mobile/MobilePortfolio";
-import World from "./components/3d/World";
-
-function CursorGlow() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  
-  useEffect(() => {
-    const handleMove = (e) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(230,126,34,0.06) 0%, transparent 60%)',
-        transform: `translate(${pos.x - 300}px, ${pos.y - 300}px)`,
-        pointerEvents: 'none',
-        zIndex: 50,
-        transition: 'transform 0.1s cubic-bezier(0.16, 1, 0.3, 1)'
-      }}
-    />
-  );
-}
+import { useState } from "react";
+import Nav from "./components/layout/Nav";
+import Hero from "./components/sections/Hero";
+import About from "./components/sections/About";
+import Work from "./components/sections/Work";
+import Toolbox from "./components/sections/Toolbox";
+import Experience from "./components/sections/Experience";
+import Writing from "./components/sections/Writing";
+import Contact from "./components/sections/Contact";
+import Footer from "./components/layout/Footer";
+import ThinkingButton from "./components/ui/ThinkingButton";
+import ThinkingPanel from "./components/ui/ThinkingPanel";
 
 export default function App() {
-  const { isLoaded, isMobile, activePanel, showAchievement } = useGameStore();
-  const [showLoading, setShowLoading] = useState(true);
-  const [canvasReady, setCanvasReady] = useState(false);
-
-  // Drive loading progress from App level
-  useEffect(() => {
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 8 + 5; 
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        useGameStore.setState({ loadingProgress: 100, isLoaded: true });
-      } else {
-        useGameStore.setState({ loadingProgress: Math.floor(progress) });
-      }
-    }, 150); // Gives about 1.5 to 2 seconds of loading time
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      useGameStore.setState({ isMobile: window.innerWidth < 768 });
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleLoaded = useCallback(() => {
-    setTimeout(() => {
-      setShowLoading(false);
-      setCanvasReady(true);
-      useGameStore.getState().startGame();
-    }, 500);
-  }, []);
-
-  // Mobile: scroll-based experience
-  if (isMobile) {
-    return <MobilePortfolio />;
-  }
+  const [isThinkingOpen, setIsThinkingOpen] = useState(false);
 
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
-      {/* Loading Screen */}
-      {showLoading && <LoadingScreen onComplete={handleLoaded} />}
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Decorative ambient background glows */}
+      <div className="absolute top-[-5%] left-[-15%] w-[600px] h-[600px] bg-accent/4 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-15%] w-[700px] h-[700px] bg-indigo-500/3 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] bg-accent/3 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* 3D Canvas */}
-      <Canvas
-        shadows
-        camera={{ fov: 55, near: 0.1, far: 500, position: [0, 40, 30] }}
-        gl={{
-          antialias: true,
-          alpha: false,
-          powerPreference: "high-performance",
-        }}
-        dpr={[1, 1.5]}
-        style={{ position: "absolute", inset: 0 }}
-      >
-        <Suspense fallback={null}>
-          <World />
-        </Suspense>
-      </Canvas>
+      <Nav />
 
-      {/* UI Overlays */}
-      {!showLoading && (
-        <>
-          {!isMobile && <CursorGlow />}
-          <QuickMenu />
-          <Minimap />
-          <ControlsHint />
-          {showAchievement && (
-            <AchievementToast message={showAchievement} />
-          )}
-          {activePanel && <InfoPanel />}
-        </>
-      )}
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        <Toolbox />
+        <Experience />
+        <Writing />
+        <Contact />
+      </main>
+
+      <Footer />
+
+      <ThinkingButton onClick={() => setIsThinkingOpen(true)} />
+      <ThinkingPanel isOpen={isThinkingOpen} onClose={() => setIsThinkingOpen(false)} />
     </div>
   );
 }
