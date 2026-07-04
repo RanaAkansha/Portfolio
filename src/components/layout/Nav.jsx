@@ -5,8 +5,10 @@ import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 
 const navLinks = [
-  { label: "Projects", href: "#projects", id: "projects" },
-  { label: "Experience", href: "#experience", id: "experience" },
+  { label: "Selected Work", href: "#projects", id: "projects" },
+  { label: "Skills", href: "#toolbox", id: "toolbox" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Writing", href: "#writing", id: "writing" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
 
@@ -15,17 +17,10 @@ export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Use scroll spy to get active section
-  const activeSection = useScrollSpy(["home", "about", "projects", "toolbox", "experience", "writing", "contact"], 120);
+  const activeSection = useScrollSpy(["home", "projects", "toolbox", "about", "writing", "contact"], 120);
 
   // Map active section to navbar highlights
-  let activeNavId = "";
-  if (activeSection === "projects" || activeSection === "toolbox") {
-    activeNavId = "projects";
-  } else if (activeSection === "experience" || activeSection === "writing") {
-    activeNavId = "experience";
-  } else if (activeSection === "contact") {
-    activeNavId = "contact";
-  }
+  const activeNavId = activeSection;
 
   // Close mobile menu on resize
   useEffect(() => {

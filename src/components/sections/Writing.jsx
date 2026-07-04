@@ -72,9 +72,12 @@ export default function Writing() {
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">
               Writing
             </span>
-            <h3 className="text-heading-2 text-text-primary tracking-tight">
+            <h3 className="text-heading-2 text-text-primary tracking-tight mb-1">
               Okay, But How?
             </h3>
+            <p className="text-xs text-text-secondary">
+              Writing about software engineering, product thinking, and building on the web.
+            </p>
           </div>
           <a
             href="https://akansharana.substack.com"

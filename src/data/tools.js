@@ -1,61 +1,50 @@
 export const tools = [
   {
-    category: "Building Interfaces",
+    category: "Frontend",
     items: [
-      { name: "React", icon: "⚛️" },
-      { name: "TypeScript", icon: "🔷" },
-      { name: "JavaScript", icon: "🟡" },
-      { name: "Tailwind CSS", icon: "🎨" },
-      { name: "HTML", icon: "🌐" },
-      { name: "CSS", icon: "✨" },
+      { name: "React", icon: "⚛️", core: true },
+      { name: "JavaScript", icon: "🟡", core: true },
+      { name: "TypeScript", icon: "🔷", core: true },
+      { name: "Tailwind CSS", icon: "🎨", core: true },
+      { name: "HTML5", icon: "🌐", core: false },
+      { name: "CSS3", icon: "✨", core: false },
     ],
   },
   {
-    category: "Building APIs",
+    category: "Backend",
     items: [
-      { name: "Node.js", icon: "🟢" },
-      { name: "Express.js", icon: "🚂" },
-      { name: "REST APIs", icon: "🔗" },
-      { name: "JWT Auth", icon: "🔐" },
+      { name: "Node.js", icon: "🟢", core: true },
+      { name: "Express.js", icon: "🚂", core: true },
+      { name: "REST APIs", icon: "🔗", core: true },
+      { name: "JWT Auth", icon: "🔐", core: false },
     ],
   },
   {
-    category: "Working with Data",
+    category: "Database",
     items: [
-      { name: "PostgreSQL", icon: "🐘" },
-      { name: "Supabase", icon: "⚡" },
-      { name: "SQL", icon: "📊" },
+      { name: "PostgreSQL", icon: "🐘", core: true },
+      { name: "Supabase", icon: "⚡", core: true },
+      { name: "SQL", icon: "📊", core: false },
     ],
   },
   {
-    category: "Design",
+    category: "Tools",
     items: [
-      { name: "Figma", icon: "🎭" },
-      { name: "Canva", icon: "🖌️" },
+      { name: "Git", icon: "🌿", core: true },
+      { name: "GitHub", icon: "🐙", core: true },
+      { name: "Figma", icon: "🎭", core: true },
+      { name: "Canva", icon: "🖌️", core: false },
     ],
   },
   {
     category: "Deployment",
     items: [
-      { name: "Vercel", icon: "▲" },
-      { name: "GitHub Pages", icon: "📄" },
-    ],
-  },
-  {
-    category: "Version Control",
-    items: [
-      { name: "Git", icon: "🌿" },
-      { name: "GitHub", icon: "🐙" },
-    ],
-  },
-  {
-    category: "CMS & Optimization",
-    items: [
-      { name: "WordPress", icon: "📝", description: "Familiar with WordPress theme structure" },
-      { name: "Basic SEO", icon: "🔍", description: "Familiar with basic on-page SEO practices" },
+      { name: "Vercel", icon: "▲", core: true },
+      { name: "GitHub Pages", icon: "📄", core: false },
     ],
   },
 ];
+
 
 export const thinkingPrinciples = [
   {

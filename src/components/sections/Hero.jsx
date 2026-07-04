@@ -96,6 +96,25 @@ export default function Hero() {
                 LinkedIn
               </a>
             </motion.div>
+
+            {/* Credibility Strip */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-12 pt-6 border-t border-slate-200/60 flex flex-wrap gap-x-6 gap-y-3 items-center text-xs text-text-secondary select-none"
+            >
+              <div className="flex items-center gap-2 font-semibold text-text-primary">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                2 Production-Ready Products
+              </div>
+              <div className="text-text-muted hidden sm:inline">•</div>
+              <div className="font-mono text-[11px] text-text-secondary">
+                React • Node.js • PostgreSQL
+              </div>
+              <div className="text-text-muted hidden sm:inline">•</div>
+              <div className="text-text-muted italic">
+                Focused on building software that solves real business problems.
+              </div>
+            </motion.div>
           </div>
 
           {/* Profile image — keeps text as primary focus on mobile (image stacks below) */}

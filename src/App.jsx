@@ -4,7 +4,6 @@ import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Work from "./components/sections/Work";
 import Toolbox from "./components/sections/Toolbox";
-import Experience from "./components/sections/Experience";
 import Writing from "./components/sections/Writing";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layout/Footer";
@@ -25,10 +24,9 @@ export default function App() {
 
       <main>
         <Hero />
-        <About />
         <Work />
         <Toolbox />
-        <Experience />
+        <About />
         <Writing />
         <Contact />
       </main>
