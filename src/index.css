@@ -5,6 +5,32 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-background: 250 251 252;
+    --color-surface: 255 255 255;
+    --color-surface-hover: 248 250 252;
+    --color-border: 226 232 240;
+    --color-text-primary: 15 23 42;
+    --color-text-secondary: 71 85 105;
+    --color-text-muted: 100 116 139;
+    --color-accent: 37 99 235;
+    --color-accent-hover: 29 78 216;
+    --color-accent-light: 239 246 255;
+  }
+
+  .dark {
+    --color-background: 2 6 23;
+    --color-surface: 15 23 42;
+    --color-surface-hover: 30 41 59;
+    --color-border: 51 65 85;
+    --color-text-primary: 248 250 252;
+    --color-text-secondary: 203 213 225;
+    --color-text-muted: 148 163 184;
+    --color-accent: 96 165 250;
+    --color-accent-hover: 147 197 253;
+    --color-accent-light: 30 41 59;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -19,16 +45,32 @@
 
   body {
     @apply bg-background text-text-primary font-sans;
-    background-color: #FAFBFC;
     background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
     background-attachment: fixed;
   }
 
+  .dark body {
+    background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  }
+
   ::selection {
-    background-color: rgba(37, 99, 235, 0.12);
+    background-color: rgba(37, 99, 235, 0.18);
     color: #2563EB;
   }
+}
+
+@layer base {
+  .dark .bg-white { background-color: rgb(var(--color-surface)) !important; }
+  .dark .bg-slate-50 { background-color: rgb(var(--color-surface-hover)) !important; }
+  .dark .bg-slate-100 { background-color: rgb(var(--color-surface-hover)) !important; }
+  .dark .border-slate-100 { border-color: rgb(var(--color-border)) !important; }
+  .dark .border-slate-200 { border-color: rgb(var(--color-border)) !important; }
+  .dark .border-slate-300 { border-color: rgb(var(--color-border)) !important; }
+  .dark .text-slate-400 { color: rgb(var(--color-text-muted)) !important; }
+  .dark .text-slate-500 { color: rgb(var(--color-text-secondary)) !important; }
+  .dark .text-slate-600 { color: rgb(var(--color-text-secondary)) !important; }
+  .dark .text-slate-700 { color: rgb(var(--color-text-primary)) !important; }
 }
 
 @layer components {
@@ -82,6 +124,32 @@
 
   .opacity-0-init {
     opacity: 0;
+  }
+}
+
+/* Profile image styles */
+@layer components {
+  .profile-border {
+    border: 1px solid rgba(15,23,42,0.06);
+    box-shadow: 0 8px 30px rgba(15,23,42,0.06);
+  }
+}
+
+@layer utilities {
+  @keyframes floatY {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .profile-float {
+    will-change: transform;
+    animation: floatY 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profile-float { animation: none !important; }
+    .profile-float { transform: none !important; }
   }
 }
 

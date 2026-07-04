@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useScrollNav } from "../../hooks/useScrollNav";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
 import { Menu, X } from "lucide-react";
-import { GitHubIcon } from "../ui/BrandIcons";
 import { motion } from "framer-motion";
 
 const navLinks = [
@@ -52,7 +51,7 @@ export default function Nav() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-smooth ${
           scrolled
-            ? "bg-white/70 backdrop-blur-lg border-b border-slate-200/40 py-3.5 shadow-[0_2px_15px_rgba(15,23,42,0.02)]"
+            ? "bg-surface/80 backdrop-blur-lg border-b border-border/70 py-3.5 shadow-[0_2px_15px_rgba(15,23,42,0.02)]"
             : "bg-transparent py-5"
         }`}
       >
@@ -106,7 +105,7 @@ export default function Nav() {
 
             {/* Mobile menu toggle */}
             <button
-              className="md:hidden p-2 rounded-lg hover:bg-slate-50 transition-colors"
+              className="md:hidden p-2 rounded-lg hover:bg-surface-hover transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -117,7 +116,7 @@ export default function Nav() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200/50 absolute top-full left-0 right-0 shadow-lg">
+          <div className="md:hidden bg-surface/95 backdrop-blur-lg border-b border-border/70 absolute top-full left-0 right-0 shadow-lg">
             <div className="container-max py-4 flex flex-col gap-1">
               {navLinks.map((link) => {
                 const isActive = activeNavId === link.id;
@@ -129,20 +128,22 @@ export default function Nav() {
                     className={`px-3 py-2.5 rounded-lg text-small font-medium transition-colors ${
                       isActive 
                         ? "bg-accent/5 text-accent font-semibold" 
-                        : "text-text-secondary hover:bg-slate-50 hover:text-text-primary"
+                        : "text-text-secondary hover:bg-surface-hover hover:text-text-primary"
                     }`}
                   >
                     {link.label}
                   </a>
                 );
               })}
-              <a
-                href="/resume.pdf"
-                download="Akansha_Rana_Resume.pdf"
-                className="mt-2 btn-primary text-xs justify-center"
-              >
-                Download Resume
-              </a>
+              <div className="mt-2 flex items-center justify-end gap-2">
+                <a
+                  href="/resume.pdf"
+                  download="Akansha_Rana_Resume.pdf"
+                  className="btn-primary text-xs justify-center"
+                >
+                  Download Resume
+                </a>
+              </div>
             </div>
           </div>
         )}

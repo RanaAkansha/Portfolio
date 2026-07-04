@@ -12,10 +12,10 @@ import ThinkingButton from "./components/ui/ThinkingButton";
 import ThinkingPanel from "./components/ui/ThinkingPanel";
 
 export default function App() {
-  const [isThinkingOpen, setIsThinkingOpen] = useState(false);
+  const [isLearningOpen, setIsLearningOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden transition-colors duration-300">
       {/* Decorative ambient background glows */}
       <div className="absolute top-[-5%] left-[-15%] w-[600px] h-[600px] bg-accent/4 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute top-[40%] right-[-15%] w-[700px] h-[700px] bg-indigo-500/3 rounded-full blur-[180px] pointer-events-none" />
@@ -33,10 +33,9 @@ export default function App() {
         <Contact />
       </main>
 
+      <ThinkingButton onClick={() => setIsLearningOpen(true)} />
+      <ThinkingPanel isOpen={isLearningOpen} onClose={() => setIsLearningOpen(false)} />
       <Footer />
-
-      <ThinkingButton onClick={() => setIsThinkingOpen(true)} />
-      <ThinkingPanel isOpen={isThinkingOpen} onClose={() => setIsThinkingOpen(false)} />
     </div>
   );
 }

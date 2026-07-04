@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, FileText } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
+import ProfileImage from "../ui/ProfileImage";
 
 const containerVariants = {
   hidden: {},
@@ -28,73 +29,85 @@ export default function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl"
+          className="max-w-5xl grid items-start gap-8 md:grid-cols-2"
         >
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6 leading-[1.1] text-balance"
-          >
-            Building software <br className="hidden md:inline" />
-            that solves real problems.
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            variants={itemVariants}
-            className="text-body-lg text-text-secondary max-w-2xl mb-10 leading-relaxed font-sans"
-          >
-            I'm Akansha, a developer who designs software from first principles. I focus on database performance, modular component architecture, and writing about how complex systems work under the hood.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap items-center gap-3.5"
-          >
-            <button
-              onClick={scrollToProjects}
-              className="btn-primary group shadow-lg shadow-accent/15 hover:shadow-accent/25 hover:scale-[1.02] active:scale-[0.98] transition-all"
-              id="hero-view-projects"
+          <div>
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6 leading-[1.1] text-balance"
             >
-              Explore Projects
-              <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-            </button>
+              Building software <br className="hidden md:inline" />
+              that solves real problems.
+            </motion.h1>
 
-            <a
-              href="/resume.pdf"
-              download="Akansha_Rana_Resume.pdf"
-              className="btn-secondary hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.02] active:scale-[0.98] transition-all"
-              id="hero-resume"
+            {/* Subheadline */}
+            <motion.p
+              variants={itemVariants}
+              className="text-body-lg text-text-secondary max-w-2xl mb-10 leading-relaxed font-sans"
             >
-              <FileText size={15} />
-              Download Resume
-            </a>
+              I'm Akansha, a developer who designs software from first principles. I focus on database performance, modular component architecture, and writing about how complex systems work under the hood.
+            </motion.p>
 
-            <div className="w-px h-6 bg-border mx-2 hidden sm:block" />
-
-            <a
-              href="https://github.com/RanaAkansha"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost text-text-secondary hover:text-text-primary hover:bg-slate-100/50"
-              id="hero-github"
+            {/* CTAs */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap items-center gap-3.5"
             >
-              <GitHubIcon size={15} />
-              GitHub
-            </a>
+              <button
+                onClick={scrollToProjects}
+                className="btn-primary group shadow-lg shadow-accent/15 hover:shadow-accent/25 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                id="hero-view-projects"
+              >
+                Explore Projects
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+              </button>
 
-            <a
-              href="https://www.linkedin.com/in/akansha-rana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost text-text-secondary hover:text-text-primary hover:bg-slate-100/50"
-              id="hero-linkedin"
-            >
-              <LinkedInIcon size={15} />
-              LinkedIn
-            </a>
-          </motion.div>
+              <a
+                href="/resume.pdf"
+                download="Akansha_Rana_Resume.pdf"
+                className="btn-secondary hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                id="hero-resume"
+              >
+                <FileText size={15} />
+                Download Resume
+              </a>
+
+              <div className="w-px h-6 bg-border mx-2 hidden sm:block" />
+
+              <a
+                href="https://github.com/RanaAkansha"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost text-text-secondary hover:text-text-primary hover:bg-slate-100/50"
+                id="hero-github"
+              >
+                <GitHubIcon size={15} />
+                GitHub
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/akansha-rana"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost text-text-secondary hover:text-text-primary hover:bg-slate-100/50"
+                id="hero-linkedin"
+              >
+                <LinkedInIcon size={15} />
+                LinkedIn
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Profile image — keeps text as primary focus on mobile (image stacks below) */}
+          <div className="hidden md:flex md:justify-end">
+            <ProfileImage className="" size="lg" shape="circle" />
+          </div>
         </motion.div>
+
+        {/* Mobile profile image (centered below text) */}
+        <div className="mt-8 md:hidden">
+          <ProfileImage />
+        </div>
 
         {/* Scroll indicator */}
         <motion.div

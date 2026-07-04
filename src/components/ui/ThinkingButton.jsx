@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Brain } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 export default function ThinkingButton({ onClick }) {
   return (
@@ -11,10 +11,10 @@ export default function ThinkingButton({ onClick }) {
       transition={{ delay: 1.2, duration: 0.4 }}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
-      aria-label="Open How I Think panel"
+      aria-label="Open What I’ve Learned panel"
     >
-      <Brain size={15} />
-      How I Think
+      <BookOpen size={15} />
+      What I’ve Learned
     </motion.button>
   );
 }

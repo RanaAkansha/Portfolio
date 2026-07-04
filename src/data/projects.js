@@ -18,20 +18,6 @@ export const projects = [
     image: null,
   },
   {
-    id: "github-finder",
-    title: "GitHub Profile Finder",
-    tagline: "Search any GitHub user and instantly surface what matters.",
-    problem:
-      "Needed a fast way to look up GitHub user stats without leaving a clean, focused UI, rather than wasting time navigating the standard GitHub interface to find key metrics like repositories and languages.",
-    technicalInterest:
-      "Built an API-driven client dashboard consuming the GitHub REST API, featuring debounced searching to handle rate limits, robust error/loading state handling, and interactive repository insights.",
-    stack: ["React", "JavaScript", "GitHub REST API", "Vite", "Tailwind CSS"],
-    github: "https://github.com/RanaAkansha/github-finder",
-    demo: "https://github-profile-insights.vercel.app/",
-    featured: false,
-    image: null,
-  },
-  {
     id: "pure-lifestyle-yoga",
     title: "Pure Lifestyle Yoga",
     tagline: "A full-stack studio site that converts visitors into booked clients.",
