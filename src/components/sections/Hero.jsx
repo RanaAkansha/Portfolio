@@ -100,18 +100,16 @@ export default function Hero() {
             {/* Credibility Strip */}
             <motion.div
               variants={itemVariants}
-              className="mt-12 pt-6 border-t border-slate-200/60 flex flex-wrap gap-x-6 gap-y-3 items-center text-xs text-text-secondary select-none"
+              className="mt-12 pt-6 border-t border-slate-200/60 flex flex-wrap items-center gap-y-3 text-xs text-text-secondary select-none"
             >
-              <div className="flex items-center gap-2 font-semibold text-text-primary">
+              <div className="flex items-center gap-2 pr-4 md:border-r border-slate-200/80">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                2 Production-Ready Products
+                <span className="font-semibold text-text-primary">2 Production-Ready Products</span>
               </div>
-              <div className="text-text-muted hidden sm:inline">•</div>
-              <div className="font-mono text-[11px] text-text-secondary">
+              <div className="font-mono text-[11px] px-0 md:px-4 md:border-r border-slate-200/80">
                 React • Node.js • PostgreSQL
               </div>
-              <div className="text-text-muted hidden sm:inline">•</div>
-              <div className="text-text-muted italic">
+              <div className="text-text-muted italic px-0 md:pl-4">
                 Focused on building software that solves real business problems.
               </div>
             </motion.div>

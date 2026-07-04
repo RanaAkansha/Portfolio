@@ -1,10 +1,11 @@
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Terminal } from "lucide-react";
 import { GitHubIcon } from "../ui/BrandIcons";
 import { projects } from "../../data/projects";
 import Badge from "../ui/Badge";
 
-// Import screenshots from assets
+// Import screenshots from assets as fallbacks
 import studiosyncImg from "../../assets/studiosync.png";
 import consultationImg from "../../assets/consultation_manager.png";
 
@@ -13,13 +14,163 @@ const projectImages = {
   "pure-lifestyle-yoga": consultationImg,
 };
 
+function BrowserMockup({ title, demoUrl, fallbackImage }) {
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(false);
+  const iframeRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Lazy-load using IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" } // Trigger slightly before element enters view
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Fail-safe load timeout
+  useEffect(() => {
+    if (!isInViewport) return;
+
+    const timer = setTimeout(() => {
+      if (loading) {
+        setHasError(true);
+        setLoading(false);
+      }
+    }, 8000); // 8 second load timeout before fallback
+
+    return () => clearTimeout(timer);
+  }, [isInViewport, loading]);
+
+  const handleLoad = () => {
+    setLoading(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsInteracting(false);
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      className="rounded-2xl border border-slate-200/50 overflow-hidden shadow-md hover:shadow-lg hover:border-slate-300 transition-all duration-500 bg-white flex flex-col w-full aspect-[16/10]"
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Browser bar */}
+      <div className="bg-slate-50 px-4 py-2.5 flex items-center gap-3 border-b border-slate-100 select-none flex-shrink-0">
+        <div className="flex gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] inline-block" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] inline-block" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F] inline-block" />
+        </div>
+        <div className="flex-1 bg-white rounded-md border border-slate-200/50 px-3 py-0.5 flex items-center justify-between max-w-sm mx-auto shadow-sm">
+          <span className="text-[10px] text-slate-400 font-mono tracking-tight truncate select-all">{title}</span>
+          {demoUrl && (
+            <a 
+              href={demoUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-slate-350 hover:text-accent transition-colors"
+            >
+              <ExternalLink size={10} />
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* Embedded Iframe Area */}
+      <div className="flex-1 relative overflow-hidden bg-slate-100">
+        {hasError ? (
+          <img 
+            src={fallbackImage} 
+            alt="Product preview fallback"
+            className="w-full h-full object-cover object-top"
+          />
+        ) : (
+          <>
+            {/* Loading Skeleton */}
+            {loading && (
+              <div className="absolute inset-0 z-20 flex flex-col bg-slate-50/95 animate-pulse">
+                {/* Header placeholder */}
+                <div className="h-12 bg-slate-250/80 border-b border-slate-200/40 px-6 flex items-center justify-between">
+                  <div className="w-24 h-4 bg-slate-300/80 rounded" />
+                  <div className="flex gap-2">
+                    <div className="w-16 h-7 bg-slate-300/80 rounded" />
+                    <div className="w-16 h-7 bg-slate-300/80 rounded" />
+                  </div>
+                </div>
+                {/* Body placeholder */}
+                <div className="flex-1 p-6 space-y-6">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="h-20 bg-slate-300/60 rounded-lg col-span-2" />
+                    <div className="h-20 bg-slate-300/60 rounded-lg col-span-1" />
+                  </div>
+                  <div className="h-28 bg-slate-300/60 rounded-lg w-full" />
+                  <div className="grid grid-cols-4 gap-4">
+                    <div className="h-12 bg-slate-300/60 rounded-lg" />
+                    <div className="h-12 bg-slate-300/60 rounded-lg" />
+                    <div className="h-12 bg-slate-300/60 rounded-lg" />
+                    <div className="h-12 bg-slate-300/60 rounded-lg" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Live Web Iframe */}
+            {isInViewport && (
+              <iframe
+                ref={iframeRef}
+                src={demoUrl}
+                title={title}
+                onLoad={handleLoad}
+                onError={() => setHasError(true)}
+                loading="lazy"
+                className={`w-full h-full border-none transition-opacity duration-300 ${
+                  loading ? "opacity-0" : "opacity-100"
+                } ${isInteracting ? "pointer-events-auto" : "pointer-events-none"}`}
+              />
+            )}
+
+            {/* Interaction Cover Overlay */}
+            {!loading && !isInteracting && (
+              <div 
+                className="absolute inset-0 bg-transparent flex items-center justify-center cursor-pointer group z-10"
+                onClick={() => setIsInteracting(true)}
+              >
+                <div className="bg-slate-900/80 text-white text-xs font-semibold px-4.5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg pointer-events-none scale-95 group-hover:scale-100">
+                  Click to Interact Live
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ProjectCard({ project, idx }) {
   const screenshot = projectImages[project.id];
   const isOdd = idx % 2 !== 0;
 
   return (
     <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start py-16 border-b border-slate-100 last:border-0 dark:border-slate-800">
-      {/* Screenshot Column - Left or Right */}
+      {/* Embedded Live Iframe Column - Left or Right */}
       <motion.div 
         className={`lg:col-span-6 ${isOdd ? "lg:order-2" : ""}`}
         initial={{ opacity: 0, y: 24 }}
@@ -27,24 +178,11 @@ function ProjectCard({ project, idx }) {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
-        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="block group">
-          <div className="rounded-2xl border border-slate-200/50 overflow-hidden shadow-md hover:shadow-lg hover:border-slate-350 transition-all duration-500 bg-white aspect-[16/10] relative select-none cursor-pointer">
-            {screenshot ? (
-              <img 
-                src={screenshot} 
-                alt={`${project.title} screenshot`}
-                loading="lazy"
-                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-slate-200">
-                <Terminal size={40} className="text-slate-400" />
-              </div>
-            )}
-            {/* Soft tint on hover */}
-            <div className="absolute inset-0 bg-accent/[0.015] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </div>
-        </a>
+        <BrowserMockup 
+          title={project.demo.replace(/^https?:\/\//, "")} 
+          demoUrl={project.demo} 
+          fallbackImage={screenshot} 
+        />
       </motion.div>
 
       {/* Content Column */}
@@ -62,7 +200,7 @@ function ProjectCard({ project, idx }) {
           {project.positioning}
         </p>
 
-        {/* Buttons - Moved directly below subtitle */}
+        {/* Buttons */}
         <div className="flex flex-wrap items-center gap-3.5 mb-10">
           {/* Primary */}
           <a
