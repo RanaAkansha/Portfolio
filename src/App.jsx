@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Nav from "./components/layout/Nav";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
@@ -7,12 +6,8 @@ import Toolbox from "./components/sections/Toolbox";
 import Writing from "./components/sections/Writing";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layout/Footer";
-import ThinkingButton from "./components/ui/ThinkingButton";
-import ThinkingPanel from "./components/ui/ThinkingPanel";
 
 export default function App() {
-  const [isLearningOpen, setIsLearningOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-background relative overflow-hidden transition-colors duration-300">
       {/* Decorative ambient background glows */}
@@ -31,8 +26,6 @@ export default function App() {
         <Contact />
       </main>
 
-      <ThinkingButton onClick={() => setIsLearningOpen(true)} />
-      <ThinkingPanel isOpen={isLearningOpen} onClose={() => setIsLearningOpen(false)} />
       <Footer />
     </div>
   );
