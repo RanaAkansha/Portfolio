@@ -1,28 +1,26 @@
 import { useState, useEffect } from "react";
 import { useScrollNav } from "../../hooks/useScrollNav";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
-import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Selected Work", href: "#projects", id: "projects" },
-  { label: "Skills", href: "#toolbox", id: "toolbox" },
-  { label: "About", href: "#about", id: "about" },
-  { label: "Writing", href: "#writing", id: "writing" },
-  { label: "Contact", href: "#contact", id: "contact" },
+  { label: "Projects",   href: "#projects",   id: "projects"   },
+  { label: "Experience", href: "#experience", id: "experience" },
+  { label: "Skills",     href: "#toolbox",    id: "toolbox"    },
+  { label: "Writing",    href: "#writing",    id: "writing"    },
+  { label: "Contact",    href: "#contact",    id: "contact"    },
 ];
 
-export default function Nav() {
-  const scrolled = useScrollNav(20);
+export default function Nav({ toggleTheme, isDark }) {
+  const scrolled   = useScrollNav(20);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Use scroll spy to get active section
-  const activeSection = useScrollSpy(["home", "projects", "toolbox", "about", "writing", "contact"], 120);
+  const activeSection = useScrollSpy(
+    ["home", "projects", "experience", "toolbox", "about", "writing", "contact"],
+    120
+  );
 
-  // Map active section to navbar highlights
-  const activeNavId = activeSection;
-
-  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) setMobileOpen(false);
@@ -31,12 +29,18 @@ export default function Nav() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Prevent scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   const handleNavClick = (e, href) => {
     e.preventDefault();
     setMobileOpen(false);
     const el = document.querySelector(href);
     if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 72;
+      const top = el.getBoundingClientRect().top + window.scrollY - 68;
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
@@ -44,42 +48,48 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-smooth ${
+        role="navigation"
+        aria-label="Main navigation"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-surface/80 backdrop-blur-lg border-b border-border/70 py-3.5 shadow-[0_2px_15px_rgba(15,23,42,0.02)]"
+            ? "bg-surface/90 backdrop-blur-xl border-b border-border py-3 shadow-[0_1px_0_rgba(15,23,42,0.05)]"
             : "bg-transparent py-5"
         }`}
       >
         <div className="container-max">
-          <div className="flex items-center justify-between h-10">
-            {/* Logo / Name */}
+          <div className="flex items-center justify-between h-9">
+
+            {/* Logo */}
             <a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-              className="text-small font-semibold text-text-primary tracking-tight hover:text-accent transition-colors duration-300"
+              className="text-small font-semibold text-text-primary hover:text-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+              aria-label="Back to top"
             >
               Akansha Rana
             </a>
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-1 relative">
+            {/* Desktop links */}
+            <div className="hidden md:flex items-center gap-0.5">
               {navLinks.map((link) => {
-                const isActive = activeNavId === link.id;
+                const isActive = activeSection === link.id;
                 return (
                   <a
                     key={link.label}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`relative px-4 py-2 text-small font-medium transition-colors duration-300 ${
-                      isActive ? "text-accent" : "text-text-secondary hover:text-text-primary"
+                    className={`relative px-3.5 py-2 text-small font-medium rounded-md transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                      isActive
+                        ? "text-text-primary"
+                        : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                     }`}
                   >
                     {link.label}
                     {isActive && (
                       <motion.span
-                        layoutId="active-underline"
-                        className="absolute bottom-0 left-3 right-3 h-[2px] bg-accent rounded-full"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                        layoutId="nav-pill"
+                        className="absolute inset-0 rounded-md bg-surface-hover -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 35 }}
                       />
                     )}
                   </a>
@@ -87,61 +97,89 @@ export default function Nav() {
               })}
             </div>
 
-            {/* Resume CTA */}
-            <div className="hidden md:flex items-center gap-3">
+            {/* Desktop right actions */}
+            <div className="hidden md:flex items-center gap-2">
+              {/* Dark mode toggle */}
+              <button
+                onClick={toggleTheme}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="p-2 rounded-md text-text-muted hover:text-text-primary hover:bg-surface-hover transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                {isDark ? <Sun size={15} /> : <Moon size={15} />}
+              </button>
+
               <a
                 href="/resume.pdf"
                 download="Akansha_Rana_Resume.pdf"
-                className="btn-primary text-xs py-2 px-4 shadow-sm hover:shadow-md transition-all duration-300"
+                className="btn-primary text-xs py-2 px-4"
+                aria-label="Download resume PDF"
               >
-                Download Resume
+                Resume
               </a>
             </div>
 
-            {/* Mobile menu toggle */}
-            <button
-              className="md:hidden p-2 rounded-lg hover:bg-surface-hover transition-colors"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
+            {/* Mobile controls */}
+            <div className="md:hidden flex items-center gap-1">
+              <button
+                onClick={toggleTheme}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="p-2 rounded-md text-text-muted hover:text-text-primary hover:bg-surface-hover transition-colors"
+              >
+                {isDark ? <Sun size={15} /> : <Moon size={15} />}
+              </button>
+              <button
+                className="p-2 rounded-md hover:bg-surface-hover transition-colors"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
+              >
+                {mobileOpen ? <X size={17} /> : <Menu size={17} />}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Mobile menu */}
-        {mobileOpen && (
-          <div className="md:hidden bg-surface/95 backdrop-blur-lg border-b border-border/70 absolute top-full left-0 right-0 shadow-lg">
-            <div className="container-max py-4 flex flex-col gap-1">
-              {navLinks.map((link) => {
-                const isActive = activeNavId === link.id;
-                return (
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+              className="md:hidden bg-surface/97 backdrop-blur-xl border-b border-border absolute top-full left-0 right-0 shadow-lg"
+            >
+              <div className="container-max py-4 flex flex-col gap-1">
+                {navLinks.map((link) => {
+                  const isActive = activeSection === link.id;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`px-3 py-2.5 rounded-lg text-small font-medium transition-colors ${
+                        isActive
+                          ? "bg-surface-hover text-text-primary font-semibold"
+                          : "text-text-secondary hover:bg-surface-hover hover:text-text-primary"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
+                <div className="mt-3 pt-3 border-t border-border">
                   <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`px-3 py-2.5 rounded-lg text-small font-medium transition-colors ${
-                      isActive 
-                        ? "bg-accent/5 text-accent font-semibold" 
-                        : "text-text-secondary hover:bg-surface-hover hover:text-text-primary"
-                    }`}
+                    href="/resume.pdf"
+                    download="Akansha_Rana_Resume.pdf"
+                    className="btn-primary text-xs w-full justify-center"
                   >
-                    {link.label}
+                    Download Resume
                   </a>
-                );
-              })}
-              <div className="mt-2 flex items-center justify-end gap-2">
-                <a
-                  href="/resume.pdf"
-                  download="Akansha_Rana_Resume.pdf"
-                  className="btn-primary text-xs justify-center"
-                >
-                  Download Resume
-                </a>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </>
   );

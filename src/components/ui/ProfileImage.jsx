@@ -1,55 +1,45 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Reusable profile image component
+/**
+ * Reusable profile image component
+ * Sizes: sm (200px) | md (280px) | lg (360px) | xl (460px)
+ * Shapes: rounded | circle
+ */
 export default function ProfileImage({
-  alt = "Akansha Rana — Software developer smiling outdoors",
+  alt = "Akansha Rana — Full Stack Developer",
   className = "",
-  size = "md", // md | lg
-  shape = "rounded", // rounded | circle
+  size = "md",
+  shape = "rounded",
 }) {
   const prefersReduced = useReducedMotion();
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!ref.current || prefersReduced) {
-      setIsVisible(true);
-      return;
-    }
-
+    if (!ref.current || prefersReduced) { setIsVisible(true); return; }
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setIsVisible(true);
-            obs.disconnect();
-          }
+          if (e.isIntersecting) { setIsVisible(true); obs.disconnect(); }
         });
       },
       { threshold: 0.2 }
     );
-
     obs.observe(ref.current);
     return () => obs.disconnect();
   }, [prefersReduced]);
 
-  // Image sources: place optimized images in `public/`
-  // - /profile.webp (preferred)
-  // - /profile.jpg (fallback)
-  // Optionally include 2x variants as /profile@2x.jpg and /profile@2x.webp
+  // Size configuration — xl is 25% bigger than lg
+  const sizeMap = {
+    sm:  { maxClass: "max-w-[200px]", px: 200 },
+    md:  { maxClass: "max-w-[280px]", px: 280 },
+    lg:  { maxClass: "max-w-[380px]", px: 380 },
+    xl:  { maxClass: "max-w-[460px]", px: 460 },
+  };
+  const { maxClass, px } = sizeMap[size] ?? sizeMap.md;
 
-  const isLarge = size === 'lg';
-  const maxClass = isLarge ? 'max-w-[360px]' : 'max-w-[280px]';
-  const imgSize = isLarge ? 360 : 280;
-  const src1x = isLarge ? '/profile.jpg' : '/profile.jpg';
-  const src2x = isLarge ? '/profile@2x.jpg' : '/profile@2x.jpg';
-  const webp1x = isLarge ? '/profile.webp' : '/profile.webp';
-  const webp2x = isLarge ? '/profile@2x.webp' : '/profile@2x.webp';
-  const circleWebp = isLarge ? '/profile-circle.webp' : '/profile-circle.webp';
-  const circleWebp2x = isLarge ? '/profile-circle@2x.webp' : '/profile-circle@2x.webp';
-
-  const imgClass = shape === 'circle' ? 'rounded-full' : 'rounded-xl';
+  const imgClass = shape === "circle" ? "rounded-full" : "rounded-xl";
 
   return (
     <motion.div
@@ -57,40 +47,50 @@ export default function ProfileImage({
       className={`${maxClass} mx-auto md:mx-0 ${className}`}
       initial={{ opacity: 0, y: 12 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={!prefersReduced ? { translateY: -4, scale: 1.02 } : {}}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={!prefersReduced ? { y: -4, scale: 1.015 } : {}}
     >
-      <div className={`relative overflow-hidden shadow-lg profile-border profile-float ${shape === 'circle' ? 'rounded-full' : 'rounded-2xl'}`}>
-        {shape === 'circle' ? (
-          <div className="rounded-full ring-1 ring-accent/20 p-0.5 bg-white/30 overflow-hidden">
+      <div
+        className={`relative overflow-hidden profile-border profile-float ${
+          shape === "circle" ? "rounded-full" : "rounded-2xl"
+        }`}
+      >
+        {shape === "circle" ? (
+          <div className="rounded-full ring-1 ring-accent/15 overflow-hidden">
             <picture>
-              <source srcSet={`${circleWebp} 1x, ${circleWebp2x} 2x`} type="image/webp" />
+              <source
+                srcSet={`/profile-circle.webp 1x, /profile-circle@2x.webp 2x`}
+                type="image/webp"
+              />
               <img
-                src={src1x}
-                srcSet={`${src1x} 1x, ${src2x} 2x`}
-                sizes={`(max-width: 768px) ${Math.round(imgSize * 0.6)}px, ${imgSize}px`}
+                src="/profile-circle.jpg"
+                srcSet={`/profile-circle.png 1x, /profile-circle@2x.png 2x`}
+                sizes={`(max-width: 768px) ${Math.round(px * 0.6)}px, ${px}px`}
                 alt={alt}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
-                className={`w-full h-auto block object-cover rounded-full`}
-                width={imgSize}
-                height={imgSize}
+                className="w-full h-auto block object-cover rounded-full"
+                width={px}
+                height={px}
               />
             </picture>
           </div>
         ) : (
           <picture>
-            <source srcSet={`${webp1x} 1x, ${webp2x} 2x`} type="image/webp" />
+            <source
+              srcSet={`/profile.webp 1x, /profile@2x.webp 2x`}
+              type="image/webp"
+            />
             <img
-              src={src1x}
-              srcSet={`${src1x} 1x, ${src2x} 2x`}
-              sizes={`(max-width: 768px) ${Math.round(imgSize * 0.6)}px, ${imgSize}px`}
+              src="/profile.jpg"
+              srcSet={`/profile.jpg 1x, /profile@2x.jpg 2x`}
+              sizes={`(max-width: 768px) ${Math.round(px * 0.6)}px, ${px}px`}
               alt={alt}
-              loading="lazy"
+              loading="eager"
               decoding="async"
               className={`w-full h-auto ${imgClass} object-cover`}
-              width={imgSize}
-              height={imgSize}
+              width={px}
+              height={px}
             />
           </picture>
         )}

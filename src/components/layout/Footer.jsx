@@ -6,12 +6,13 @@ export default function Footer() {
         <p className="text-small text-text-muted">
           © {year} Akansha Rana. Designed and built from scratch.
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <a
             href="https://github.com/RanaAkansha"
             target="_blank"
             rel="noopener noreferrer"
             className="text-small text-text-muted hover:text-text-primary transition-colors duration-200"
+            aria-label="GitHub profile"
           >
             GitHub
           </a>
@@ -20,6 +21,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="text-small text-text-muted hover:text-text-primary transition-colors duration-200"
+            aria-label="LinkedIn profile"
           >
             LinkedIn
           </a>
@@ -28,6 +30,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="text-small text-text-muted hover:text-text-primary transition-colors duration-200"
+            aria-label="Substack newsletter"
           >
             Substack
           </a>

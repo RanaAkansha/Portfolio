@@ -4,50 +4,54 @@ import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
 
 export default function Contact() {
   return (
-    <section id="contact" className="section-padding border-t border-border">
+    <section id="contact" className="section-padding border-t border-border bg-background">
       <div className="container-max">
-        <div className="max-w-2xl">
+        <div className="max-w-xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
-            <p className="section-label">Contact</p>
-            <h2 className="text-heading-1 text-text-primary mb-4">
-              Let's talk
+            <span className="section-label">Contact</span>
+            <h2 className="text-heading-1 text-text-primary mb-3 tracking-tight font-bold">
+              Let's work together
             </h2>
-            <p className="text-body text-text-secondary mb-10 max-w-lg leading-relaxed">
-              I'm currently looking for full-stack developer roles and internships. If you're working on something interesting, or just want to talk through a project, reach out.
+            <p className="text-body text-text-secondary mb-8 leading-relaxed">
+              Currently a Junior Web Developer at AptechUK and actively looking for my next
+              opportunity. If you're working on something interesting, reach out.
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="flex flex-col gap-5"
           >
-            {/* Email CTA Button */}
+            {/* Primary CTA */}
             <a
               href="mailto:akansharana0620@gmail.com"
-              className="btn-primary inline-flex items-center gap-2.5 px-6 py-3.5 mb-10 shadow-sm hover:shadow-md transition-all duration-300 font-semibold"
+              className="btn-primary self-start items-center gap-2.5 px-6 py-3.5 font-semibold"
               id="contact-email"
+              aria-label="Send an email to Akansha"
             >
-              <Mail size={16} />
+              <Mail size={15} aria-hidden="true" />
               akansharana0620@gmail.com
             </a>
 
-            {/* Links */}
-            <div className="flex flex-wrap items-center gap-3">
+            {/* Secondary links */}
+            <div className="flex flex-wrap items-center gap-2.5">
               <a
                 href="https://github.com/RanaAkansha"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"
                 id="contact-github"
+                aria-label="GitHub profile (opens in new tab)"
               >
-                <GitHubIcon size={15} />
+                <GitHubIcon size={14} />
                 GitHub
               </a>
               <a
@@ -56,8 +60,9 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="btn-secondary"
                 id="contact-linkedin"
+                aria-label="LinkedIn profile (opens in new tab)"
               >
-                <LinkedInIcon size={15} />
+                <LinkedInIcon size={14} />
                 LinkedIn
               </a>
               <a
@@ -66,17 +71,19 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="btn-secondary"
                 id="contact-substack"
+                aria-label="Substack newsletter (opens in new tab)"
               >
-                Writing ↗
+                Substack ↗
               </a>
               <a
                 href="/resume.pdf"
                 download="Akansha_Rana_Resume.pdf"
                 className="btn-secondary"
                 id="contact-resume"
+                aria-label="Download resume PDF"
               >
-                <FileText size={15} />
-                Download Resume
+                <FileText size={14} aria-hidden="true" />
+                Resume
               </a>
             </div>
           </motion.div>

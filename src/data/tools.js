@@ -1,46 +1,48 @@
+// core: true  = primary stack (highlighted in UI)
+// core: false = secondary / supporting tools
 export const tools = [
   {
     category: "Frontend",
     items: [
-      { name: "React", icon: "⚛️", core: true },
-      { name: "JavaScript", icon: "🟡", core: true },
-      { name: "TypeScript", icon: "🔷", core: true },
-      { name: "Tailwind CSS", icon: "🎨", core: true },
-      { name: "HTML5", icon: "🌐", core: false },
-      { name: "CSS3", icon: "✨", core: false },
+      { name: "React", core: true },
+      { name: "JavaScript", core: true },
+      { name: "TypeScript", core: true },
+      { name: "Tailwind CSS", core: true },
+      { name: "HTML5", core: false },
+      { name: "CSS3", core: false },
     ],
   },
   {
     category: "Backend",
     items: [
-      { name: "Node.js", icon: "🟢", core: true },
-      { name: "Express.js", icon: "🚂", core: true },
-      { name: "REST APIs", icon: "🔗", core: true },
-      { name: "JWT Auth", icon: "🔐", core: false },
+      { name: "Node.js", core: true },
+      { name: "Express.js", core: true },
+      { name: "REST APIs", core: true },
+      { name: "JWT Auth", core: false },
     ],
   },
   {
     category: "Database",
     items: [
-      { name: "PostgreSQL", icon: "🐘", core: true },
-      { name: "Supabase", icon: "⚡", core: true },
-      { name: "SQL", icon: "📊", core: false },
+      { name: "PostgreSQL", core: true },
+      { name: "Supabase", core: true },
+      { name: "SQL", core: false },
     ],
   },
   {
-    category: "Tools",
+    category: "Tools & Design",
     items: [
-      { name: "Git", icon: "🌿", core: true },
-      { name: "GitHub", icon: "🐙", core: true },
-      { name: "Figma", icon: "🎭", core: true },
-      { name: "Canva", icon: "🖌️", core: false },
+      { name: "Git", core: true },
+      { name: "GitHub", core: true },
+      { name: "Figma", core: true },
+      { name: "Canva", core: false },
     ],
   },
   {
     category: "Deployment",
     items: [
-      { name: "Vercel", icon: "▲", core: true },
-      { name: "GitHub Pages", icon: "📄", core: false },
+      { name: "Vercel", core: true },
+      { name: "GitHub Pages", core: false },
     ],
   },
 ];
