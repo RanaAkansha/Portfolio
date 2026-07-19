@@ -18,7 +18,7 @@ export default function Contact() {
               Let's work together
             </h2>
             <p className="text-body text-text-secondary mb-8 leading-relaxed">
-              Currently a Junior Web Developer at AptechUK and actively looking for my next
+              Currently a Junior Web Developer (Remote) at AptechUK and actively looking for my next
               opportunity. If you're working on something interesting, reach out.
             </p>
           </motion.div>

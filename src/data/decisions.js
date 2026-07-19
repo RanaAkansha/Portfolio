@@ -10,7 +10,7 @@ export const decisions = [
     id: 2,
     question: "Why PostgreSQL over MongoDB?",
     answer:
-      "Studio bookings have hard relational constraints: a client belongs to a studio, a booking belongs to a client and a time slot. Enforcing these at the database level with foreign keys and transactions beats trying to simulate them in application code. Relational problems need relational tools.",
+      "CollabDesk projects have hard relational constraints: a client belongs to a project workspace, a task/deliverable belongs to a project. Enforcing these at the database level with foreign keys and transactions beats trying to simulate them in application code. Relational problems need relational tools.",
     icon: "Database",
   },
   {
@@ -38,7 +38,7 @@ export const decisions = [
     id: 6,
     question: "Why component reusability matters.",
     answer:
-      "Every UI component in StudioSync was built with a single responsibility. The BookingCard renders a booking — it doesn't fetch it, doesn't know who's logged in, and doesn't decide what actions are available. That separation means I can render it in a list, a modal, or a PDF export without changing the component.",
+      "Every UI component in CollabDesk was built with a single responsibility. The TaskCard renders a task — it doesn't fetch it, doesn't know who's logged in, and doesn't decide what actions are available. That separation means I can render it in a list, a modal, or a PDF export without changing the component.",
     icon: "Layers",
   },
 ];

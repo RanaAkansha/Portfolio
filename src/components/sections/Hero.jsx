@@ -57,8 +57,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-body text-text-secondary max-w-lg mb-8 leading-relaxed"
             >
-              CS student and full stack developer. I build production-ready web
-              applications with React, Node.js, and PostgreSQL.
+              Full Stack Developer building production-ready web applications with React, Node.js, Express, and PostgreSQL. Experienced across the stack — from REST API design to responsive UI implementation — with a product-focused mindset shaped by a UI/UX design background and two platforms shipped end-to-end.
             </motion.p>
 
             {/* CTAs */}
@@ -121,11 +120,11 @@ export default function Hero() {
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-1 h-1 rounded-full bg-border" aria-hidden="true" />
-                AptechUK · Junior Web Developer
+                AptechUK · Junior Web Developer (Remote)
               </span>
               <span className="flex items-center gap-1.5 font-mono text-[11px]">
                 <span className="w-1 h-1 rounded-full bg-border" aria-hidden="true" />
-                React · Node.js · PostgreSQL
+                React · Node.js · Express · PostgreSQL
               </span>
             </motion.div>
           </div>

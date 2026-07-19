@@ -8,8 +8,8 @@ export const lessons = [
     change: 'Now I think about edge cases before I write features.'
   },
   {
-    id: 'studiosync',
-    title: 'StudioSync',
+    id: 'collabdesk',
+    title: 'CollabDesk',
     expectation: 'I believed authentication and backend architecture would be the biggest challenge.',
     reality: 'Understanding how agencies and clients actually communicate was much harder than writing backend code.',
     lesson: 'Software succeeds when it fits into people\'s workflows, not when it simply has more features.',

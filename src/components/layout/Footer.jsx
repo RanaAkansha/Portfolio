@@ -4,7 +4,7 @@ export default function Footer() {
     <footer className="border-t border-border py-8">
       <div className="container-max flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-small text-text-muted">
-          © {year} Akansha Rana. Designed and built from scratch.
+          © {year} Akansha Rana. All rights reserved.
         </p>
         <div className="flex items-center gap-5">
           <a

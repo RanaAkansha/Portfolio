@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const stats = [
   { value: "2",   label: "Shipped products"  },
   { value: "3+",  label: "Articles written"   },
-  { value: "2",   label: "Roles held"         },
+  { value: "3",   label: "Roles held"         },
 ];
 
 export default function About() {
@@ -19,7 +19,7 @@ export default function About() {
         >
           <span className="section-label">About</span>
           <h2 className="text-heading-1 text-text-primary tracking-tight font-bold max-w-2xl">
-            CS student. Full Stack Developer.
+            Full Stack Developer.
           </h2>
         </motion.div>
 
@@ -33,11 +33,11 @@ export default function About() {
             className="text-body text-text-secondary space-y-4 leading-relaxed max-w-2xl"
           >
             <p>
-              I'm Akansha Rana — a Computer Science student currently working as a Junior Web
-              Developer at{" "}
+              I'm Akansha Rana — a Full Stack Developer currently working as a Junior Web
+              Developer (Remote) at{" "}
               <strong className="text-text-primary font-semibold">AptechUK</strong>. I build
-              full-stack web applications using React, Node.js, Express, and PostgreSQL, and
-              write about engineering on Substack.
+              production-ready web applications with React, Node.js, Express, and PostgreSQL.
+              I am experienced across the stack — from REST API design to responsive UI implementation — with a product-focused mindset shaped by a UI/UX design background.
             </p>
             <p>
               I approach every project by understanding the business problem first. My background

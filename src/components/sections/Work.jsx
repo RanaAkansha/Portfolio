@@ -5,47 +5,19 @@ import { GitHubIcon } from "../ui/BrandIcons";
 import { projects } from "../../data/projects";
 import Badge from "../ui/Badge";
 
-import studiosyncImg    from "../../assets/studiosync.png";
-import consultationImg  from "../../assets/consultation_manager.png";
+import collabdeskImg   from "../../assets/collabdesk.png";
+import consultflowImg   from "../../assets/consultflow.png";
 
 const projectImages = {
-  studiosync:              studiosyncImg,
-  "pure-lifestyle-yoga":   consultationImg,
+  collabdesk:  collabdeskImg,
+  consultflow: consultflowImg,
 };
 
 /* ─── Browser Mockup ─────────────────────────────────────────────────────── */
 function BrowserMockup({ title, demoUrl, fallbackImage }) {
-  const [loading, setLoading]             = useState(true);
-  const [hasError, setHasError]           = useState(false);
-  const [isInteracting, setIsInteracting] = useState(false);
-  const [isInViewport, setIsInViewport]   = useState(false);
-  const iframeRef    = useRef(null);
-  const containerRef = useRef(null);
-
-  // Lazy-load via IntersectionObserver
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { setIsInViewport(true); observer.disconnect(); }
-      },
-      { rootMargin: "300px" }
-    );
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // Fallback timeout
-  useEffect(() => {
-    if (!isInViewport) return;
-    const timer = setTimeout(() => {
-      if (loading) { setHasError(true); setLoading(false); }
-    }, 9000);
-    return () => clearTimeout(timer);
-  }, [isInViewport, loading]);
-
   return (
     /* Laptop-style outer frame */
-    <div ref={containerRef} className="relative select-none">
+    <div className="relative select-none group">
       {/* Screen bezel */}
       <div className="rounded-xl overflow-hidden border border-slate-200/70 dark:border-slate-700/60 shadow-[0_8px_40px_rgba(15,23,42,0.12)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)] bg-slate-100 dark:bg-slate-900 p-1">
         {/* Browser chrome */}
@@ -79,71 +51,18 @@ function BrowserMockup({ title, demoUrl, fallbackImage }) {
 
           {/* Content area */}
           <div className="flex-1 relative overflow-hidden bg-slate-50 dark:bg-slate-900">
-            {hasError ? (
-              <img
-                src={fallbackImage}
-                alt={`${title} project preview`}
-                className="w-full h-full object-cover object-top"
-              />
-            ) : (
-              <>
-                {/* Skeleton */}
-                {loading && (
-                  <div className="absolute inset-0 z-20 flex flex-col bg-white dark:bg-slate-800 animate-pulse">
-                    <div className="h-12 bg-slate-100 dark:bg-slate-700 border-b border-slate-100 dark:border-slate-600 px-5 flex items-center justify-between">
-                      <div className="w-20 h-3 bg-slate-200 dark:bg-slate-600 rounded" />
-                      <div className="flex gap-2">
-                        <div className="w-14 h-6 bg-slate-200 dark:bg-slate-600 rounded" />
-                        <div className="w-14 h-6 bg-slate-200 dark:bg-slate-600 rounded" />
-                      </div>
-                    </div>
-                    <div className="flex-1 p-5 space-y-4">
-                      <div className="grid grid-cols-3 gap-3">
-                        <div className="h-20 bg-slate-100 dark:bg-slate-700 rounded col-span-2" />
-                        <div className="h-20 bg-slate-100 dark:bg-slate-700 rounded" />
-                      </div>
-                      <div className="h-28 bg-slate-100 dark:bg-slate-700 rounded w-full" />
-                      <div className="grid grid-cols-4 gap-3">
-                        {[...Array(4)].map((_, i) => (
-                          <div key={i} className="h-10 bg-slate-100 dark:bg-slate-700 rounded" />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Live iframe */}
-                {isInViewport && (
-                  <iframe
-                    ref={iframeRef}
-                    src={demoUrl}
-                    title={`Live preview of ${title}`}
-                    onLoad={() => setLoading(false)}
-                    onError={() => { setHasError(true); setLoading(false); }}
-                    loading="lazy"
-                    className={`w-full h-full border-none transition-opacity duration-300 ${
-                      loading ? "opacity-0" : "opacity-100"
-                    } ${isInteracting ? "pointer-events-auto" : "pointer-events-none"}`}
-                  />
-                )}
-
-                {/* Interaction overlay */}
-                {!loading && !isInteracting && (
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Click to interact with live preview"
-                    className="absolute inset-0 flex items-center justify-center cursor-pointer group z-10"
-                    onClick={() => setIsInteracting(true)}
-                    onKeyDown={(e) => e.key === "Enter" && setIsInteracting(true)}
-                  >
-                    <span className="bg-slate-900/85 dark:bg-slate-950/90 text-white text-xs font-semibold px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg scale-95 group-hover:scale-100 pointer-events-none">
-                      Click to interact
-                    </span>
-                  </div>
-                )}
-              </>
-            )}
+            <img
+              src={fallbackImage}
+              alt={`${title} project preview`}
+              className="w-full h-full object-cover object-top transition-[object-position] duration-[5s] ease-in-out hover:object-bottom cursor-ns-resize"
+              loading="lazy"
+            />
+            {/* Hover overlay hint (only shown when hover is possible) */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none opacity-100 group-hover:opacity-0 transition-opacity duration-300 flex items-end justify-center pb-2.5">
+              <span className="bg-slate-950/80 text-white text-[9px] font-semibold px-2 py-0.5 rounded shadow-sm">
+                Hover to scroll page
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -246,6 +165,23 @@ function ProjectCard({ project, idx }) {
             <p className="text-xs text-text-secondary leading-relaxed">{project.solution}</p>
           </div>
         </div>
+
+        {/* Bullets from Resume */}
+        {project.bullets && (
+          <div className="mb-6">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2">
+              Key Contributions
+            </h4>
+            <ul className="space-y-2 text-xs text-text-secondary leading-relaxed list-none">
+              {project.bullets.map((bullet, bulletIdx) => (
+                <li key={bulletIdx} className="flex items-start gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent/60 mt-1.5 flex-shrink-0" aria-hidden="true" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Stack */}
         <div className="flex flex-wrap gap-1.5 mb-6">

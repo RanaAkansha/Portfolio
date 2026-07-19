@@ -1,15 +1,22 @@
 // core: true  = primary stack (highlighted in UI)
-// core: false = secondary / supporting tools
+// core: false = supporting tools
 export const tools = [
+  {
+    category: "Languages",
+    items: [
+      { name: "JavaScript", core: true },
+      { name: "Java", core: true },
+      { name: "Python", core: true },
+      { name: "HTML5", core: false },
+      { name: "CSS3", core: false },
+    ],
+  },
   {
     category: "Frontend",
     items: [
-      { name: "React", core: true },
-      { name: "JavaScript", core: true },
-      { name: "TypeScript", core: true },
+      { name: "React.js", core: true },
       { name: "Tailwind CSS", core: true },
-      { name: "HTML5", core: false },
-      { name: "CSS3", core: false },
+      { name: "Responsive Design", core: true },
     ],
   },
   {
@@ -18,7 +25,7 @@ export const tools = [
       { name: "Node.js", core: true },
       { name: "Express.js", core: true },
       { name: "REST APIs", core: true },
-      { name: "JWT Auth", core: false },
+      { name: "JWT Authentication", core: false },
     ],
   },
   {
@@ -26,23 +33,18 @@ export const tools = [
     items: [
       { name: "PostgreSQL", core: true },
       { name: "Supabase", core: true },
-      { name: "SQL", core: false },
     ],
   },
   {
-    category: "Tools & Design",
+    category: "Tools",
     items: [
       { name: "Git", core: true },
       { name: "GitHub", core: true },
-      { name: "Figma", core: true },
-      { name: "Canva", core: false },
-    ],
-  },
-  {
-    category: "Deployment",
-    items: [
-      { name: "Vercel", core: true },
-      { name: "GitHub Pages", core: false },
+      { name: "VS Code", core: false },
+      { name: "Postman", core: false },
+      { name: "Vercel", core: false },
+      { name: "Figma", core: false },
+      { name: "WordPress", core: false },
     ],
   },
 ];
@@ -57,12 +59,12 @@ export const thinkingPrinciples = [
   {
     question: "How do I know this solves the user's problem?",
     answer:
-      "I try to observe the problem before designing the solution. For StudioSync, I watched how a studio owner actually managed bookings — not how she described managing them. There's always a gap between what people say they do and what they actually do. That gap is where the real design happens.",
+      "I try to observe the problem before designing the solution. For CollabDesk, I watched how a project manager actually collaborated with clients — not how she described doing it. There's always a gap between what people say they do and what they actually do. That gap is where the real design happens.",
   },
   {
     question: "Can this be simplified?",
     answer:
-      "My first design is almost never the right one. The first version of the StudioSync booking flow had five steps. I cut it to two by asking: what is the minimum information we need right now, and what can we defer? Simplicity is earned through iteration, not assumed from the start.",
+      "My first design is almost never the right one. The first version of the CollabDesk workspace interface had five tabs. I cut it to two by asking: what is the minimum information we need right now, and what can we defer? Simplicity is earned through iteration, not assumed from the start.",
   },
   {
     question: "What trade-offs exist?",
@@ -72,11 +74,11 @@ export const thinkingPrinciples = [
   {
     question: "Who is affected if this breaks?",
     answer:
-      "I think about failure modes before I think about the happy path. If authentication breaks in StudioSync, a studio owner can't access their client list. That's a real business impact. Understanding failure consequence changes how carefully you design error states, fallbacks, and user messaging.",
+      "I think about failure modes before I think about the happy path. If authentication breaks in CollabDesk, an agency owner can't access their client workspaces. That's a real business impact. Understanding failure consequence changes how carefully you design error states, fallbacks, and user messaging.",
   },
   {
     question: "What would I do differently next time?",
     answer:
-      "I keep a short notes file after each project — not a formal retrospective, just honest observations. Things like: 'I underestimated how complex availability logic would be' or 'I should have talked to one more user before deciding on this structure.' The next project is always better for it.",
+      "I keep a short notes file after each project — not a formal retrospective, just honest observations. Things like: 'I underestimated how complex database schemas can get' or 'I should have talked to one more user before deciding on this structure.' The next project is always better for it.",
   },
 ];

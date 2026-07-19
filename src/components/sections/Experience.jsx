@@ -4,58 +4,37 @@ const experiences = [
   {
     title: "Junior Web Developer",
     company: "AptechUK",
-    type: "On-site",
-    duration: "July 2026 – Present",
+    type: "Remote",
+    duration: "Jul 2026 – Present",
     current: true,
-    cards: [
-      {
-        title: "Web Development",
-        detail:
-          "Developing and maintaining web pages and UI components as part of a professional engineering team. Translating design specifications into semantic, responsive HTML, CSS, and JavaScript across multiple client projects.",
-      },
-      {
-        title: "Collaboration & Delivery",
-        detail:
-          "Working alongside senior developers to ship client-facing features on schedule. Following Git version control workflows and contributing to quality assurance through testing and code reviews.",
-      },
+    bullets: [
+      "Built responsive, client-facing web applications using React, JavaScript, and Tailwind CSS.",
+      "Developed and deployed backend services with Node.js, Express, and PostgreSQL on Vercel and Neon.",
+      "Debugged and shipped feature improvements across live client projects, supporting website optimization."
     ],
   },
   {
     title: "Full Stack Developer Intern",
     company: "ScholarHat",
     type: "Remote",
-    duration: "May 2026 – July 2026",
+    duration: "May 2026 – Jul 2026",
     current: false,
-    cards: [
-      {
-        title: "Full Stack Development",
-        detail:
-          "Built and maintained full-stack features using React, Node.js, Express.js, and PostgreSQL. Wrote modular React components, designed RESTful API endpoints, and participated in code review cycles.",
-      },
-      {
-        title: "Engineering Practices",
-        detail:
-          "Contributed to a production codebase following modern software engineering practices, including component-driven UI architecture, RESTful API design, and collaborative development workflows.",
-      },
+    bullets: [
+      "Built full-stack features end-to-end using React on the front end and Node.js/Express on the back end.",
+      "Collaborated with senior engineers to design and integrate REST APIs with production databases.",
+      "Contributed to code reviews and agile sprints, delivering scalable, maintainable code."
     ],
   },
   {
     title: "UI/UX Design Intern",
     company: "ScholarHat",
     type: "Remote",
-    duration: "June 2025 – August 2025",
+    duration: "Jun 2025 – Aug 2025",
     current: false,
-    cards: [
-      {
-        title: "Component Translation",
-        detail:
-          "Translated high-fidelity Figma designs into modular, production-ready React components and responsive web pages, ensuring pixel-accurate implementation of the design system.",
-      },
-      {
-        title: "Design System & Assets",
-        detail:
-          "Designed and delivered over 80 brand-consistent marketing assets using Figma and Canva, maintaining design system consistency across a high-volume EdTech platform.",
-      },
+    bullets: [
+      "Designed and delivered 80+ marketing assets while maintaining consistent, on-brand visuals.",
+      "Translated Figma designs into responsive React interfaces for production-ready web pages.",
+      "Collaborated with designers and developers to improve UI consistency and development handoff."
     ],
   },
 ];
@@ -125,29 +104,22 @@ export default function Experience() {
                 </p>
               </div>
 
-              {/* Detail cards */}
-              <div className="grid sm:grid-cols-2 gap-3">
-                {exp.cards.map((card, cardIdx) => (
-                  <div
-                    key={cardIdx}
-                    className={`card p-4 ${
-                      exp.current
-                        ? "border-accent/10 bg-accent/[0.02]"
-                        : ""
-                    }`}
-                  >
-                    <h4
-                      className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${
-                        exp.current ? "text-accent" : "text-text-muted"
-                      }`}
-                    >
-                      {card.title}
-                    </h4>
-                    <p className="text-xs text-text-secondary leading-relaxed">
-                      {card.detail}
-                    </p>
-                  </div>
-                ))}
+              {/* Detail card */}
+              <div
+                className={`card p-5 ${
+                  exp.current
+                    ? "border-accent/10 bg-accent/[0.02]"
+                    : ""
+                }`}
+              >
+                <ul className="space-y-2.5 text-xs text-text-secondary leading-relaxed">
+                  {exp.bullets.map((bullet, bulletIdx) => (
+                    <li key={bulletIdx} className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent/60 mt-1.5 flex-shrink-0" aria-hidden="true" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}

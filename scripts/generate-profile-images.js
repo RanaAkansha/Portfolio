@@ -35,14 +35,16 @@ async function generate() {
       const outWebp = path.join(outDir, `${v.name}.webp`);
       const outJpg = path.join(outDir, `${v.name}.jpg`);
 
-      // Use attention-based crop to focus on the subject's face/important regions
+      // Use custom face crop coordinates to zoom in 20-30% and keep face centered
       await sharp(src)
-        .resize(v.size, v.size, { fit: 'cover', position: 'attention' })
+        .extract({ left: 1000, top: 1400, width: 1500, height: 1500 })
+        .resize(v.size, v.size)
         .webp({ quality: 85 })
         .toFile(outWebp);
 
       await sharp(src)
-        .resize(v.size, v.size, { fit: 'cover', position: 'attention' })
+        .extract({ left: 1000, top: 1400, width: 1500, height: 1500 })
+        .resize(v.size, v.size)
         .jpeg({ quality: 85 })
         .toFile(outJpg);
     }
@@ -56,7 +58,8 @@ async function generate() {
       const svg = `<svg width="${size}" height="${size}"><rect x="0" y="0" width="${size}" height="${size}" rx="${size}" ry="${size}"/></svg>`;
 
       const buffer = await sharp(src)
-        .resize(size, size, { fit: 'cover', position: 'attention' })
+        .extract({ left: 1000, top: 1400, width: 1500, height: 1500 })
+        .resize(size, size)
         .toBuffer();
 
       // Apply circular mask via SVG composite

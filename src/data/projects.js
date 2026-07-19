@@ -1,52 +1,64 @@
 export const projects = [
   {
-    id: "pure-lifestyle-yoga",
-    title: "Consultation Manager",
-    year: "2025",
-    positioning: "Lead Conversion & Consultation Booking Platform for Premium Wellness Businesses.",
-    tagline: "Turning website visitors into qualified consultation bookings.",
+    id: "consultflow",
+    title: "ConsultFlow",
+    year: "2026",
+    positioning: "Lead Conversion & Booking Platform.",
+    tagline: "Architected a full-stack booking platform to replace manual lead qualification with a guided multi-step flow.",
     problem:
-      "Premium wellness businesses struggle to convert website visitors into qualified consultation bookings. Leads arrive through multiple channels but vanish without a structured capture and follow-up workflow, leaving revenue on the table.",
+      "Businesses struggle to convert website visitors into qualified bookings. Leads arrive through disjointed channels and vanish without a structured capture, verification, and appointment scheduling workflow.",
     solution:
-      "Built a lead conversion platform with an interactive multi-step recommendation quiz, a streamlined consultation booking workflow, and a centralized admin dashboard that consolidates KPIs and lead status in one view.",
+      "Designed and developed ConsultFlow, an integrated booking platform featuring a guided qualification flow, an appointment scheduler, and a centralized admin dashboard for real-time specialist matching.",
+    bullets: [
+      "Architected a full-stack booking platform to replace manual lead qualification with a guided multi-step flow.",
+      "Designed a centralized admin dashboard for real-time specialist matching and appointment oversight.",
+      "Modeled a Supabase/PostgreSQL schema to keep appointments, specialists, and leads in sync in real time.",
+      "Built a reusable React component library to keep the UI consistent across the platform."
+    ],
     features: [
-      "Multi-step Recommendation Quiz",
-      "Consultation Booking Workflow",
-      "Lead Management Dashboard",
-      "KPI Analytics",
-      "Responsive UI"
+      "Guided Multi-step Flow",
+      "Specialist Matching",
+      "Real-time Dashboard",
+      "Supabase Database",
+      "Reusable Component Library"
     ],
     architecture: ["React", "Supabase", "PostgreSQL"],
-    stack: ["React", "Supabase", "PostgreSQL", "Tailwind CSS"],
+    stack: ["React", "Tailwind CSS", "Supabase", "PostgreSQL"],
     challenges:
-      "Designing a conflict-free scheduling workflow that prevents double-bookings during peak hours using PostgreSQL transaction locks, combined with a multi-step quiz state machine that reduced visitor drop-off by 35% through progressive disclosure.",
-    github: "https://github.com/RanaAkansha/pure-lifestyle-yoga",
-    demo: "https://pure-lifestyle-yoga-ten.vercel.app",
+      "Modeling a robust Supabase/PostgreSQL schema to keep appointments, specialists, and leads in sync in real time, and designing a reusable React component library to maintain strict UI consistency across the platform.",
+    github: "https://github.com/RanaAkansha/consultation-manager",
+    demo: "https://pure-lifestyle-yoga-ten.vercel.app/",
     featured: true,
   },
   {
-    id: "studiosync",
-    title: "StudioSync",
-    year: "2025",
-    positioning: "Full-stack Client Collaboration Platform for Digital Agencies.",
-    tagline: "Replacing scattered emails and spreadsheets with a single client workspace.",
+    id: "collabdesk",
+    title: "CollabDesk",
+    year: "2026",
+    positioning: "Client Collaboration Platform.",
+    tagline: "Designed a role-based collaboration platform to unify fragmented project and client communication.",
     problem:
-      "Agencies manage projects across email threads, cloud drives, and messaging apps — leading to version confusion, missed deadlines, and poor client visibility. There is no single source of truth.",
+      "Agencies and clients communicate across scattered, fragmented channels (emails, chats, drives), leading to misaligned project tracking, data leakages, and poor visibility.",
     solution:
-      "Built a secure role-based collaboration platform where agencies and clients manage projects, track deliverables, and communicate through structured workspaces — with JWT auth separating agency-level and client-level data access at the API layer.",
-    features: [
-      "JWT Authentication",
-      "Role-Based Access Control",
-      "Project & Deliverable Tracking",
-      "Client Collaboration Workspace",
-      "Real-time Status Updates"
+      "Built CollabDesk, a secure role-based client collaboration workspace with JWT authentication, REST APIs for managing deliverables and comments, and scalable components.",
+    bullets: [
+      "Designed a role-based collaboration platform to unify fragmented project and client communication for agencies.",
+      "Implemented JWT-based authentication and access control to separate Admin and Client permissions securely.",
+      "Built REST APIs with Express.js and PostgreSQL to manage projects, deliverables, comments, and users.",
+      "Structured reusable React components to keep the codebase maintainable as features scaled."
     ],
-    architecture: ["React", "Express REST API", "JWT", "PostgreSQL"],
+    features: [
+      "Role-Based workspaces",
+      "JWT-based Access Control",
+      "REST APIs",
+      "Deliverable Management",
+      "Status Comments"
+    ],
+    architecture: ["React", "Node.js", "Express", "PostgreSQL", "JWT"],
     stack: ["React", "Node.js", "Express", "PostgreSQL", "JWT", "Tailwind CSS"],
     challenges:
-      "Implementing clean API-level role-based authorization middleware that prevents data leakage between agencies and clients, while optimizing complex relational queries to compile project status, deliverable versions, and comment feeds in a single database roundtrip.",
-    github: "https://github.com/RanaAkansha/studio-sync",
-    demo: "https://studio-sync-kappa.vercel.app",
+      "Implementing JWT-based authentication and secure role-based access control to separate Admin and Client permissions, while scaling reusable components to keep the codebase maintainable.",
+    github: "https://github.com/RanaAkansha/client-workspace",
+    demo: "https://studio-sync-kappa.vercel.app/",
     featured: true,
   },
 ];
