@@ -63,7 +63,7 @@ export default function ProfileImage({
                 type="image/webp"
               />
               <img
-                src="/profile-circle.jpg"
+                src="/profile-circle.png"
                 srcSet={`/profile-circle.png 1x, /profile-circle@2x.png 2x`}
                 sizes={`(max-width: 768px) ${Math.round(px * 0.6)}px, ${px}px`}
                 alt={alt}

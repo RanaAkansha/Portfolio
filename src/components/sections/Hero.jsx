@@ -57,7 +57,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-body text-text-secondary max-w-lg mb-8 leading-relaxed"
             >
-              Full Stack Developer building production-ready web applications with React, Node.js, Express, and PostgreSQL. Experienced across the stack — from REST API design to responsive UI implementation — with a product-focused mindset shaped by a UI/UX design background and two platforms shipped end-to-end.
+              Full Stack Developer building fast, production-ready web applications. I combine a strong engineering foundation with a product-focused mindset to create seamless user experiences.
             </motion.p>
 
             {/* CTAs */}

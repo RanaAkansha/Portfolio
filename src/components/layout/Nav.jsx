@@ -5,9 +5,10 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Projects",   href: "#projects",   id: "projects"   },
+  { label: "Home",       href: "#home",       id: "home"       },
+  { label: "About",      href: "#about",      id: "about"      },
   { label: "Experience", href: "#experience", id: "experience" },
-  { label: "Skills",     href: "#toolbox",    id: "toolbox"    },
+  { label: "Projects",   href: "#projects",   id: "projects"   },
   { label: "Writing",    href: "#writing",    id: "writing"    },
   { label: "Contact",    href: "#contact",    id: "contact"    },
 ];

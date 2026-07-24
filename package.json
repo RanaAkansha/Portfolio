@@ -1,5 +1,6 @@
 {
   "name": "portfolio",
+  "description": "Akansha Rana - Full Stack Developer Portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -22,7 +23,6 @@
     "framer-motion": "^12.42.0",
     "lucide-react": "^1.22.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "react-dom": "^19.2.7"
   }
 }
